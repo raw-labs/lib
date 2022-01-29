@@ -1,5 +1,3 @@
-# RAW Labs lib
-
 # RAW Labs Library and Reference Data
 
 ## exchangeratesapi.io
