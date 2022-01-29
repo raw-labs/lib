@@ -1,0 +1,310 @@
+//
+// https://developer.twitter.com/en/support/twitter-api/error-troubleshooting
+// Twitter error v2
+//
+
+typealias twitter_error := record(
+    errors: collection( record(
+        parameters: record(
+            end_time: collection( string ) nullable
+        ) nullable,
+        message: string nullable
+    )),
+    title: string nullable,
+    detail: string nullable,
+    type: string nullable
+) nullable;
+
+// 
+// https://developer.twitter.com/en/docs/twitter-api/data-dictionary/object-model/user
+//
+    typealias user := record(
+        id: string,
+        name: string,
+        username: string,
+        created_at: string nullable,   // user.field=created_at
+        description: string nullable, // user.fields=description
+        entities: record(            
+            `url`: record(                
+                `urls`: collection( record(
+                    `start`: int nullable,
+                    `end`: int nullable,
+                    `url`: string nullable,
+                    `expanded_url`: string nullable,
+                    `display_url`: string nullable
+                ) ) nullable
+            ) nullable,
+            `description`: record(                
+                `urls`: collection( record(
+                    `start`: int nullable,
+                    `end`: int nullable,
+                    `url`: string nullable,
+                    `expanded_url`: string nullable,
+                    `display_url`: string nullable
+                ) ) nullable,
+                `hashtags`: collection( record( 
+                    `start`: int nullable,
+                    `end`: int nullable,
+                    `hashtag`: string nullable
+                ) ) nullable,
+                `mentions`: collection( record(
+                    `start`: int nullable,
+                    `end`: int nullable,
+                    `username`: string nullable
+                ) ) nullable,
+                `cashtags`: collection( record(
+                    `start`: int nullable,
+                    `start`: int nullable,
+                    `cashtag`: string nullable
+                ) ) nullable
+            ) nullable // description
+        ) nullable, // user.fields=entities
+        `location`: string nullable, // user.fields=location
+        `pinned_tweet_id`: string nullable,
+        `profile_image_url`: string nullable,
+        `protected`: bool nullable,    // user.field=protected
+        `public_metrics`: record(            
+            `followers_count`: int nullable,
+            `following_count`: int nullable,
+            `tweet_count`: int nullable,
+            `listed_count`: int nullable
+        ) nullable,
+        url: string nullable, // user.fields=url
+        verified: bool nullable, // user.fields=verified
+        withheld: record(
+            copyright: bool nullable,
+            country_codes: collection(string) nullable,
+            scope: string nullable
+        ) nullable
+    ); 
+
+//
+// https://developer.twitter.com/en/docs/twitter-api/data-dictionary/object-model/tweet
+//
+typealias tweet := record(
+    id: string,
+    text: string,
+    attachements: record(
+        poll_ids: collection(string) nullable,
+        media_keys: collection(string) nullable
+    ) nullable,
+    author_id: string nullable,
+    context_annotation: collection( record(
+            domain:record(
+                id: string nullable,
+                name: string nullable,
+                description: string nullable 
+            ) nullable,
+            entity:record(
+                id:string nullable,
+                name:string nullable
+            ) nullable
+    ) ) nullable,
+    conversation_id:string nullable,
+    created_at:string nullable,
+    entities: record(
+        annotations: collection( record(
+            start: int nullable,
+            end: int nullable,
+            probability: double nullable,
+            type: string nullable,
+            normalized_text: string nullable
+        )) nullable,
+        cahstags: collection( record(
+            start: int nullable,
+            end: int nullable,
+            tag: string nullable
+        )) nullable,
+        hashtags: collection( record(
+            start: int nullable,
+            end: int nullable,
+            tag: string nullable
+        )) nullable,
+        mentions: collection( record(
+            start: int nullable,
+            end: int nullable,
+            tag: string nullable
+        )) nullable,
+        urls: collection( record(
+            start: int nullable,
+            end: int nullable,
+            url: string nullable,
+            expanded_url: string nullable,
+            display_url: string nullable,
+            status: string nullable,
+            title: string nullable,
+            description: string nullable,
+            unwound_url: string nullable
+        )) nullable
+    ) nullable,
+    in_reply_to_user_id: string nullable,
+    lang: string nullable,
+    non_public_metrics: record(
+        impression_count: int nullable,
+        url_link_clicks: int nullable,
+        user_profile_clicks: int nullable
+    ) nullable,
+    organic_metrics: record(
+        impression_count: int nullable,
+        like_count: int nullable,
+        reply_count: int nullable,
+        retweet_count: int nullable,
+        url_link_clicks: int nullable,
+        user_profile_clicks: int nullable        
+    ) nullable,
+    possibly_sensitive: bool nullable,
+    promoted_metrics: record(
+        impression_count: int nullable,
+        like_count: int nullable,
+        reply_count: int nullable,
+        retweet_count: int nullable,
+        url_link_clicks: int nullable,
+        user_profile_clicks: int nullable
+    ) nullable,
+    public_metrics: record(
+        retweet_count: int nullable,
+        reply_count: int nullable,
+        like_count: int nullable,
+        quote_count: int nullable
+    ) nullable,
+    referenced_tweets: collection( record(
+        type: string nullable,
+        id: string nullable
+    )) nullable,
+    reply_setting: string nullable,
+    source: string nullable,
+    withheld: record(
+        copyright: bool nullable,
+        country_codes: collection(string) nullable
+    ) nullable
+);
+
+//
+// https://developer.twitter.com/en/docs/twitter-api/users/lookup/api-reference/get-users-by-username-username#Optional
+//
+
+typealias user_response := record(
+    data: user,
+    includes: collection(tweet) nullable
+);
+
+get_users_by_username_username(    
+                        username: string,
+                        token: string,      // OAuth token
+                        expansions: string null := null,
+                        `tweet.fields` : string null := null,
+                        `user.fields` : string null := null
+                        ) := {
+
+    read_json[user_response](  "https://api.twitter.com/2/users/by/username/"+username,
+                                http_args:=[
+                                            ("expansions", expansions),
+                                            ("tweet.fields", `tweet.fields`),
+                                            ("user.fields", `user.fields`)
+                                        ],
+                                http_headers:=[("Authorization","Bearer "+token)]
+                        )
+}
+
+//
+// https://developer.twitter.com/en/docs/twitter-api/users/lookup/api-reference/get-users-me
+//
+
+get_users_me(    
+                token: string,      // OAuth token
+                expansions: string null := null,
+                `tweet.fields` : string null := null,
+                `user.fields` : string null := null
+                ) := {
+
+// FIXME needs OAuth2.0 user context
+    read_json[user_response](  "https://api.twitter.com/2/users/me",
+                                http_args:=[
+                                            ("expansions", expansions),
+                                            ("tweet.fields", `tweet.fields`),
+                                            ("user.fields", `user.fields`)
+                                        ],
+                                http_headers:=[("Authorization","Bearer "+token)]
+                        )
+}
+
+//
+// 
+//
+
+typealias tweet_response := record(
+    data: collection(tweet),
+    includes: record( 
+        users: collection(user) 
+    ) nullable,
+    errors: twitter_error
+);
+
+//
+// https://developer.twitter.com/en/docs/twitter-api/tweets/lookup/api-reference/get-tweets
+//
+
+get_tweets( ids: string,
+            token: string,
+            expansions: string null := null,
+            `media.fields`: string null := null,
+            `place.fields`: string null := null,
+            `poll.fields`: string null := null,
+            `tweet.fields`: string null := null,
+            `user.fields`: string null := null
+            ) := {
+      
+    read_json[tweet_response](  "https://api.twitter.com/2/tweets/",
+                                http_args:=[
+                                            ("ids",ids),
+                                            ("expansions", expansions),
+                                            ("media.fields", `media.fields`),
+                                            ("place.fields", `place.fields`),
+                                            ("poll.fields", `poll.fields`),
+                                            ("tweet.fields", `tweet.fields`),
+                                            ("user.fields", `user.fields`)
+                                        ],
+                                http_headers:=[("Authorization","Bearer "+token)]
+                        )
+}
+
+// returns the number of tweets from a given account
+// during the last 7 days
+//
+// https://developer.twitter.com/en/docs/twitter-api/tweets/counts/api-reference/get-tweets-counts-recent
+//
+
+tweets_counts_from(username: string, token: string) := {
+
+    result := HTTP(   url:="https://api.twitter.com/2/tweets/counts/recent",
+            method:="get",
+            encoding:="utf-8",
+            args:= [ ("query", "from:"+username),
+                    ("granularity","day")],
+            headers:= [("Authorization","Bearer "+token)]
+    )
+    typealias twitter_counts := record(
+        data: collection( record(
+            end: string,
+            start: string,
+            tweet_count: int
+        ) )
+        ); 
+
+    parse_json[twitter_counts](result.data).data
+
+}
+
+// number of tweets from username yesterday
+//
+// returns:
+// record( date:string, tweet_count:int ) 
+//
+yesterdays_tweets_counts_from(username: string, token: string) := {
+    tcf := tweets_counts_from("raw_labs","AAAAAAAAAAAAAAAAAAAAAC0BYgEAAAAAxtCke9h6zLx7zwAfKeodemWDKTU%3DcHON2FWpEViXBbETAnTlVdlnDRqKSnAt1ckpPMC3RPZNCJPhyz");  // FIXME
+    // get yesterday's date
+    yesterday := substring( clast(tcf).start, 1, 10);
+    // find yesterday's count
+    cfirst( select substring(start,1,10) as `date`,tweet_count from tcf where substring( end,1,10) = yesterday and substring(start,1,10) != yesterday )
+}
+

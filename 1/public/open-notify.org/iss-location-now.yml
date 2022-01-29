@@ -1,0 +1,16 @@
+# yaml-language-server: $schema=https://rawlabs-public-test-data.s3.eu-west-1.amazonaws.com/endpoint-schemaV0.9.json
+raw: 0.9
+endpoint: GET
+code: rql
+codeFile: open-notify.rql
+format: json
+computeClass: normal
+enabled: true
+declaration: iss_location_now
+metadata:
+  title: open-notify.org Open APIs from Space
+  description: Retrieves the current ISS position above the earth
+  tags:
+    - ISS
+security:
+  public: true

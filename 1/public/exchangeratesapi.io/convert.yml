@@ -1,0 +1,22 @@
+raw: 0.9
+endpoint: GET
+metadata:
+  title: Currency converter
+  description: Currency conversion based on live rates from exchangeratesapi.io
+    this requires a paying subscription.
+    https://exchangeratesapi.io/documentation/
+    from: symbol (USD, GBP, JPY ...)
+    to: symbol (USD, GBP...)
+    amount: value to be converted
+    date (optional): YYYY-MM-DD
+  tags:
+    - rates
+    - currency
+code: rql
+declaration: convert
+codeFile: exchangeratesapi.rql
+format: json
+security:
+  public: true
+computeClass: normal
+enabled: true

@@ -1,0 +1,233 @@
+//
+// https://exchangeratesapi.io/
+// Needs registration to get API Key and 1.000 free calls
+//
+// Retrieving Exchange Rates
+// Documentation: https://exchangeratesapi.io/documentation/
+//
+
+typealias rates := record(
+    `success`: bool,
+    `historical`: bool nullable,
+    `timestamp`: int,
+    `base`: string,
+    `date`: string,
+    `rates`: record(
+        `AED`: double null,
+        `AFN`: double null,
+        `ALL`: double null,
+        `AMD`: double null,
+        `ANG`: double null,
+        `AOA`: double null,
+        `ARS`: double null,
+        `AUD`: double null,
+        `AWG`: double null,
+        `AZN`: double null,
+        `BAM`: double null,
+        `BBD`: double null,
+        `BDT`: double null,
+        `BGN`: double null,
+        `BHD`: double null,
+        `BIF`: double null,
+        `BMD`: double null,
+        `BND`: double null,
+        `BOB`: double null,
+        `BRL`: double null,
+        `BSD`: double null,
+        `BTC`: double null,
+        `BTN`: double null,
+        `BWP`: double null,
+        `BYN`: double null,
+        `BYR`: double null,
+        `BZD`: double null,
+        `CAD`: double null,
+        `CDF`: double null,
+        `CHF`: double null,
+        `CLF`: double null,
+        `CLP`: double null,
+        `CNY`: double null,
+        `COP`: double null,
+        `CRC`: double null,
+        `CUC`: double null,
+        `CUP`: double null,
+        `CVE`: double null,
+        `CZK`: double null,
+        `DJF`: double null,
+        `DKK`: double null,
+        `DOP`: double null,
+        `DZD`: double null,
+        `EGP`: double null,
+        `ERN`: double null,
+        `ETB`: double null,
+        `EUR`: double null,
+        `FJD`: double null,
+        `FKP`: double null,
+        `GBP`: double null,
+        `GEL`: double null,
+        `GGP`: double null,
+        `GHS`: double null,
+        `GIP`: double null,
+        `GMD`: double null,
+        `GNF`: double null,
+        `GTQ`: double null,
+        `GYD`: double null,
+        `HKD`: double null,
+        `HNL`: double null,
+        `HRK`: double null,
+        `HTG`: double null,
+        `HUF`: double null,
+        `IDR`: double null,
+        `ILS`: double null,
+        `IMP`: double null,
+        `INR`: double null,
+        `IQD`: double null,
+        `IRR`: double null,
+        `ISK`: double null,
+        `JEP`: double null,
+        `JMD`: double null,
+        `JOD`: double null,
+        `JPY`: double null,
+        `KES`: double null,
+        `KGS`: double null,
+        `KHR`: double null,
+        `KMF`: double null,
+        `KPW`: double null,
+        `KRW`: double null,
+        `KWD`: double null,
+        `KYD`: double null,
+        `KZT`: double null,
+        `LAK`: double null,
+        `LBP`: double null,
+        `LKR`: double null,
+        `LRD`: double null,
+        `LSL`: double null,
+        `LTL`: double null,
+        `LVL`: double null,
+        `LYD`: double null,
+        `MAD`: double null,
+        `MDL`: double null,
+        `MGA`: double null,
+        `MKD`: double null,
+        `MMK`: double null,
+        `MNT`: double null,
+        `MOP`: double null,
+        `MRO`: double null,
+        `MUR`: double null,
+        `MVR`: double null,
+        `MWK`: double null,
+        `MXN`: double null,
+        `MYR`: double null,
+        `MZN`: double null,
+        `NAD`: double null,
+        `NGN`: double null,
+        `NIO`: double null,
+        `NOK`: double null,
+        `NPR`: double null,
+        `NZD`: double null,
+        `OMR`: double null,
+        `PAB`: double null,
+        `PEN`: double null,
+        `PGK`: double null,
+        `PHP`: double null,
+        `PKR`: double null,
+        `PLN`: double null,
+        `PYG`: double null,
+        `QAR`: double null,
+        `RON`: double null,
+        `RSD`: double null,
+        `RUB`: double null,
+        `RWF`: double null,
+        `SAR`: double null,
+        `SBD`: double null,
+        `SCR`: double null,
+        `SDG`: double null,
+        `SEK`: double null,
+        `SGD`: double null,
+        `SHP`: double null,
+        `SLL`: double null,
+        `SOS`: double null,
+        `SRD`: double null,
+        `STD`: double null,
+        `SVC`: double null,
+        `SYP`: double null,
+        `SZL`: double null,
+        `THB`: double null,
+        `TJS`: double null,
+        `TMT`: double null,
+        `TND`: double null,
+        `TOP`: double null,
+        `TRY`: double null,
+        `TTD`: double null,
+        `TWD`: double null,
+        `TZS`: double null,
+        `UAH`: double null,
+        `UGX`: double null,
+        `USD`: double null,
+        `UYU`: double null,
+        `UZS`: double null,
+        `VEF`: double null,
+        `VND`: double null,
+        `VUV`: double null,
+        `WST`: double null,
+        `XAF`: double null,
+        `XAG`: double null,
+        `XAU`: double null,
+        `XCD`: double null,
+        `XDR`: double null,
+        `XOF`: double null,
+        `XPF`: double null,
+        `YER`: double null,
+        `ZAR`: double null,
+        `ZMK`: double null,
+        `ZMW`: double null,
+        `ZWL`: double null
+        )
+);
+
+//
+// https://exchangeratesapi.io/documentation/
+//
+
+latest(access_key: string, base: string null:=null, symbols: string null:=null ) := {
+
+    read_json[rates]( "http://api.exchangeratesapi.io/v1/latest",
+                                 http_args:=[
+                                            ("access_key", access_key),
+                                            ("base", base),
+                                            ("symbols", symbols)
+                                        ]
+                        )
+}
+
+//
+// date is YYYY-MM-DD
+//
+
+historical(access_key: string, `date`:string, base: string null:=null, symbols: string null:=null ) := {
+
+    read_json[rates]( "http://api.exchangeratesapi.io/v1/"+`date`,
+                                 http_args:=[
+                                            ("access_key", access_key),
+                                            ("base", base),
+                                            ("symbols", symbols)
+                                        ]
+                        )
+}
+
+//
+// This requires a subscription plan, not available with the free access_key
+//
+
+convert(access_key: string, `from`: string, `to`: string, `amount`: double, `date`: string null := null) := {
+
+    read_json[rates]( "http://api.exchangeratesapi.io/v1/convert",
+                                 http_args:=[
+                                            ("access_key", access_key),
+                                            ("from", `from`),
+                                            ("to", `to`),
+                                            ("amount", `amount`),
+                                            ("date", `date`)
+                                        ]
+                        )
+}
+
