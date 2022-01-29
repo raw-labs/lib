@@ -1,0 +1,226 @@
+//
+// Geocoding and reverse geocoding
+// https://opencagedata.com/api
+//
+
+typealias geocode_response := record(
+        documentation: string,
+        licenses: collection(record(
+            name: string,
+            url: string
+        )),
+        rate: record(
+            `limit`: int,
+            remaining: int,
+            reset: int
+        ),
+        results: collection(record(
+            annotations: record(
+                DMS: record(
+                    lat: string,
+                    lng: string
+                ),
+                MGRS: string,
+                Maidenhead: string,
+                Mercator: record(
+                    x: double,
+                    y: double
+                ),
+                OSM: record(
+                    edit_url: string,
+                    note_url: string,
+                    url: string
+                ),
+                UN_M49: record(
+                    regions: record(
+                        AFRICA : string null,
+                        AMERICAS : string null,
+                        ASIA : string null,
+                        AUSTRALASIA : string null,
+                        CARIBBEAN : string null,
+                        CENTRAL_AMERICA : string null,
+                        CENTRAL_ASIA : string null,
+                        CHANNEL_ISLANDS : string null,
+                        EASTERN_AFRICA : string null,
+                        EASTERN_ASIA : string null,
+                        EASTERN_EUROPE : string null,
+                        EUROPE : string null,
+                        LATIN_AMERICA : string null,
+                        MELANESIA : string null,
+                        MICRONESIAN_REGION : string null, 
+                        MIDDLE_AFRICA : string null,
+                        NORTHERN_AFRICA : string null,
+                        NORTHERN_AMERICA : string null,
+                        NORTHERN_EUROPE : string null,
+                        NORTH_AMERICA : string null,
+                        OCEANIA : string null,
+                        POLYNESIA : string null,
+                        SOUTHEAST_ASIA : string null,
+                        SOUTHERN_AFRICA : string null,
+                        SOUTHERN_ASIA : string null,
+                        SOUTHERN_EUROPE : string null,
+                        SOUTH_AMERICA : string null,
+                        `SUB-SAHARAN_AFRICA` : string null,
+                        WESTERN_AFRICA : string null,
+                        WESTERN_ASIA : string null,
+                        WESTERN_EUROPE : string null,
+                        WORLD : string null
+                    ),
+                    statistical_groupings: collection(string)
+                ),
+                calling_code: int null,
+                currency: record(
+                    alternate_symbol: collection( string ) null,
+                    decimal_mark: string,
+                    disambiguate_symbol: string null,
+                    format: string null,
+                    html_entity : string,
+                    iso_code : string,
+                    iso_numeric : string,
+                    name : string,
+                    smallest_denomination : int,
+                    subunit : string,
+                    subunit_to_unit : int,
+                    symbol : string,
+                    symbol_first : int,
+                    thousands_separator : string
+                ),
+                flag : string,
+                geohash : string,
+                qibla : double,
+                roadinfo : record(
+                    drive_on : string null,
+                    road : string null,
+                    speed_in : string,
+                    road_type: string null,
+                    road_reference: string null,
+                    road_reference_intl: string null,
+                    lanes: int null,
+                    maxspeed: int null,
+                    oneway: string null,
+                    toll: string null,
+                    surface: string null,
+                    width: double null
+                ),
+                sun : record(
+                    rise : record(
+                        apparent : int,
+                        astronomical : int,
+                        civil : int,
+                        nautical : int
+                    ),
+                    set : record(
+                        apparent : int,
+                        astronomical : int,
+                        civil : int,
+                        nautical : int
+                    )
+                ),
+                timezone : record(
+                    name : string,
+                    now_in_dst : int,
+                    offset_sec : int,
+                    offset_string : string,
+                    short_name : string
+                ),
+                what3words : record(
+                    words : string
+                )
+            ),// annotations
+            bounds : record(
+                northeast : record(
+                    lat : double,
+                    lng : double
+                ),
+                southwest : record(
+                    lat : double,
+                    lng : double
+                )
+            ),
+            components : record(
+                `ISO_3166-1_alpha-2` : string null,
+                `ISO_3166-1_alpha-3` : string null,
+                _category : string null,
+                _type : string null,
+                city : string null,
+                continent : string null,
+                country : string null,
+                country_code : string null,
+                county: string null,
+                municipality: string null,
+                postcode : string null,
+                region: string null,
+                restaurant : string null,
+                road : string null,
+                road_type: string null,
+                road_reference: string null,
+                road_reference_intl: string null,
+                state : string null,
+                state_code: string null,
+                state_district: string null,
+                suburb : string null
+            ),
+            confidence : int,
+            formatted : string,
+            geometry : record(
+                lat : double,
+                lng : double
+            )
+        ) ), // result
+        status: record(
+            code: int,
+            message: string
+        ),
+        stay_informed: record(
+            blog: string,
+            twitter: string
+        ),
+        thanks: string,
+        timestamp: record(
+            created_http: string,
+            created_unix: int
+        ),
+        total_results: int
+);
+
+//
+// Example usage
+// geocode("83d91ec79exxxxxfa3axxxx69af9b9fe","161.9697%2C+35.8934")
+// 
+geocode(key: string, 
+        q: string,
+        abbrv: int null := 0,
+        add_request: int null :=0,
+        bounds: string null := null,
+        countrycode: string null := null,
+        jsonp: string null := null,
+        language: string null := null,
+        `limit`: int null := 10,
+        no_annotations: int null := 0,
+        no_dedup: int null := 0,
+        no_record: int null :=0,
+        pretty: int null :=0,
+        proximity: string null := null,
+        roadinfo: int null :=0
+        ) := {
+    
+    read_json[geocode_response](  "https://api.opencagedata.com/geocode/v1/json",
+                                http_args:=[
+                                            ("q", q),
+                                            ("key", key),
+                                            ("abbrv", cast( abbrv as string ) ),
+                                            ("add_request", cast( add_request as string ) ),
+                                            ("bounds", bounds),
+                                            ("countrycode", countrycode),
+                                            ("jsonp", jsonp),
+                                            ("language", language),
+                                            ("limit", cast( `limit` as string ) ),
+                                            ("no_annotations", cast ( no_annotations as string ) ),
+                                            ("no_dedup", cast ( no_dedup as string ) ),
+                                            ("no_record", cast ( no_record as string ) ),
+                                            ("pretty", cast ( pretty as string ) ),
+                                            ("proximity", proximity),
+                                            ("roadinfo", cast ( roadinfo as string ) )
+                                        ]
+                        )
+}
