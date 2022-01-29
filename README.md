@@ -9,3 +9,6 @@ Exchange rates API
 Open APIs from Space<p>
 ISS position above Earth.
 
+## opencagedata.com
+
+Geocoding API<p>
