@@ -185,7 +185,8 @@ typealias geocode_response := record(
 
 //
 // Example usage
-// geocode("83d91ec79exxxxxfa3axxxx69af9b9fe","161.9697%2C+35.8934")
+// geocode(secret("opencagedata.com"), "161.9697,+35.8934")
+// geocode("83d91ec79exxxxxfa3axxxx69af9b9fe","161.9697,+35.8934")
 // 
 geocode(key: string, 
         q: string,
