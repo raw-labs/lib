@@ -16,12 +16,12 @@ typealias iss := record(
     message: string
 );
 
-// returns the current position
-iss_location_now() := {
-    read_json[iss]("http://api.open-notify.org/iss-now.json")
-}
-
 // returns the current position with a one second cache
 iss_location_1sec() := {
     read_json[iss]("http://api.open-notify.org/iss-now.json", cache:= interval "1 seconds")
+}
+
+// returns the current position
+iss_location_now() := {
+    read_json[iss]("http://api.open-notify.org/iss-now.json")
 }
