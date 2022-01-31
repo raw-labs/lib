@@ -188,13 +188,12 @@ typealias user_response := record(
     includes: collection(tweet) nullable
 );
 
-get_users_by_username_username(    
-                        username: string,
-                        token: string,      // OAuth token
-                        expansions: string null := null,
-                        `tweet.fields` : string null := null,
-                        `user.fields` : string null := null
-                        ) := {
+get_users_by_username_username( token: string,                            
+                                username: string,
+                                expansions: string null := null,
+                                `tweet.fields` : string null := null,
+                                `user.fields` : string null := null
+                            ) := {
 
     read_json[user_response](  "https://api.twitter.com/2/users/by/username/"+username,
                                 http_args:=[
@@ -210,12 +209,11 @@ get_users_by_username_username(
 // https://developer.twitter.com/en/docs/twitter-api/users/lookup/api-reference/get-users-me
 //
 
-get_users_me(    
-                token: string,      // OAuth token
-                expansions: string null := null,
-                `tweet.fields` : string null := null,
-                `user.fields` : string null := null
-                ) := {
+get_users_me( token: string,      // OAuth token
+              expansions: string null := null,
+              `tweet.fields` : string null := null,
+              `user.fields` : string null := null
+            ) := {
 
 // FIXME needs OAuth2.0 user context
     read_json[user_response](  "https://api.twitter.com/2/users/me",
@@ -244,8 +242,8 @@ typealias tweet_response := record(
 // https://developer.twitter.com/en/docs/twitter-api/tweets/lookup/api-reference/get-tweets
 //
 
-get_tweets( ids: string,
-            token: string,
+get_tweets( token: string,
+            ids: string,
             expansions: string null := null,
             `media.fields`: string null := null,
             `place.fields`: string null := null,
@@ -274,7 +272,7 @@ get_tweets( ids: string,
 // https://developer.twitter.com/en/docs/twitter-api/tweets/counts/api-reference/get-tweets-counts-recent
 //
 
-tweets_counts_from(username: string, token: string) := {
+tweets_counts_from(token: string, username: string) := {
 
     result := HTTP(   url:="https://api.twitter.com/2/tweets/counts/recent",
             method:="get",
@@ -293,18 +291,5 @@ tweets_counts_from(username: string, token: string) := {
 
     parse_json[twitter_counts](result.data).data
 
-}
-
-// number of tweets from username yesterday
-//
-// returns:
-// record( date:string, tweet_count:int ) 
-//
-yesterdays_tweets_counts_from(username: string, token: string) := {
-    tcf := tweets_counts_from("raw_labs","AAAAAAAAAAAAAAAAAAAAAC0BYgEAAAAAxtCke9h6zLx7zwAfKeodemWDKTU%3DcHON2FWpEViXBbETAnTlVdlnDRqKSnAt1ckpPMC3RPZNCJPhyz");  // FIXME
-    // get yesterday's date
-    yesterday := substring( clast(tcf).start, 1, 10);
-    // find yesterday's count
-    cfirst( select substring(start,1,10) as `date`,tweet_count from tcf where substring( end,1,10) = yesterday and substring(start,1,10) != yesterday )
 }
 
