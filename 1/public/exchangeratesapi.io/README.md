@@ -10,7 +10,7 @@ Check documentation at https://exchangeratesapi.io/documentation/
 
 Implemented Endpoints:
 
-`convert()`<p>
-`historical()`<p>
-`latest()`<p>
+`convert(access_key: string, `from`: string, `to`: string, `amount`: double, `date`: string null := null)`<p>
+`historical(access_key: string, `date`:string, base: string null:=null, symbols: string null:=null)`<p>
+`latest(access_key: string, base: string null:=null, symbols: string null:=null)`<p>
 
