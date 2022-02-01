@@ -7,10 +7,10 @@ format: json
 computeClass: normal
 computeLimitSeconds: 30
 enabled: true
-declaration: get_users_me
+declaration: get_users_id_tweets
 metadata:
   title: Twitter API v2.0
-  description: Accessing tweets
+  description: Accessing tweets via https://api.twitter.com/2/users/:id/tweets
   tags:
 security:
   public: true
