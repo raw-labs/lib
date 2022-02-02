@@ -18,7 +18,7 @@
 // https://meteosource.com/
 //
 
-typealias places_response := record(
+typealias places_response := collection(record(
     name: string,
     place_id: string,
     adm_area1: string,
@@ -26,8 +26,48 @@ typealias places_response := record(
     country: string,
     lat: string,
     lon: string,
-    timezone: string
+    timezone: string)
 );
+
+typealias time_machine_response := 
+    record(
+        lat: string,
+        lon: string,
+        elevation: int,
+        units: string,
+        data: collection(
+            record(
+                date: string,
+                weather: string,
+                icon: int,
+                temperature: double,
+                soil_temperature: double,
+                dew_point: double,
+                surface_temperature: double,
+                wind: 
+                    record(
+                        speed: double,
+                        gusts: double,
+                        angle: int,
+                        dir: string),
+                cloud_cover: 
+                    record(
+                        total: int,
+                        low: int,
+                        middle: int,
+                        high: int),
+                pressure: int,
+                precipitation: 
+                    record(
+                        total: double,
+                        type: string),
+                cape: int,
+                evaporation: double,
+                irradiance: double,
+                ozone: int
+            )
+        )
+    );
 
 
 //
@@ -36,12 +76,25 @@ typealias places_response := record(
 // 
 find_places(text: string, key: string, language: string := "en") := {
 
-
     read_json[places_response](  "https://www.meteosource.com/api/v1/premium/find_places",
                                 http_args:=[
                                             ("text", text),
                                             ("language", language),
                                             ("key", key)
-                                        ]
-                        )
+                                ]
+    )
+};
+
+time_machine(place_id: string, lat: string, lon: string, date: string, units: string) := {
+
+    read_json[time_machine_response] ( "https://www.meteosource.com/api/v1/premium/time_machine", 
+        http_args:=[
+            ("place_id": place_id),
+            ("lat": lat),
+            ("lon": lon),
+            ("date": date),
+            ("units": units),
+            ("key", key)
+        ]
+    )
 };
