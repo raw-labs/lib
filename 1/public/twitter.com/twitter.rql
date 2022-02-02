@@ -90,7 +90,7 @@ typealias tweet := record(
     geo: record(
         coordinates: record(
             type: string nullable,
-            coordinates: collection(record(double,double)) nullable,
+            coordinates: collection(record()) nullable
         ),
         place_id: string nullable
     ) nullable,
@@ -729,23 +729,6 @@ get_tweets_id_liking_users( client_id: string,
 // https://api.twitter.com/2/users/:id/liked_tweets
 // Allows you to get information about a user’s liked Tweets.
 
-typealias users_id_liked_tweets := record(
-    data: collection(record(
-        id: string null,
-        name: string null,
-        username: string null,
-        created_at: string null,
-        pinned_tweet_id: string null,
-        description: string null
-    )),
-    includes: record(
-        tweets: collection(record(
-            id: string null,
-            text: string null
-        ))
-    ) nullable
-);
-
 get_users_id_liked_tweets(  client_id: string,
                             client_secret: string,
                             id: string,
@@ -759,7 +742,7 @@ get_users_id_liked_tweets(  client_id: string,
                             `user.fields`: string null := null
                         ) := {
       
-    read_json[users_id_liked_tweets](  "https://api.twitter.com/2/users/"+id+"/liked_tweets",
+    read_json[tweets_response](  "https://api.twitter.com/2/users/"+id+"/liked_tweets",
                     http_args:=[
                                 ("expansions", expansions),
                                 ("max_results", cast( max_results as string ) ),
