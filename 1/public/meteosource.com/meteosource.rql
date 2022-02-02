@@ -72,7 +72,7 @@ typealias time_machine_response :=
 
 //
 // Example usage
-// find-places("chicago",secret("meteosource.com"))
+// find_places("chicago",secret("meteosource.com"))
 // 
 find_places(text: string, key: string, language: string := "en") := {
 
@@ -85,7 +85,11 @@ find_places(text: string, key: string, language: string := "en") := {
     )
 };
 
-time_machine(place_id: string, lat: string, lon: string, date: string, units: string) := {
+//
+// Example usage
+// time_machine(place_id:="chicago",key:=secret("meteosource.com",date:="2020-01-23"))
+// 
+time_machine(place_id: string null := null, key: string, date: string, lat: string null := null, lon: string null := null, units: string := "auto") := {
 
     read_json[time_machine_response] ( "https://www.meteosource.com/api/v1/premium/time_machine", 
         http_args:=[
@@ -97,7 +101,4 @@ time_machine(place_id: string, lat: string, lon: string, date: string, units: st
             ("key", key)
         ]
     )
-};
-                                        ]
-                        )
 };
