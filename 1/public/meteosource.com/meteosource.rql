@@ -98,3 +98,6 @@ time_machine(place_id: string, lat: string, lon: string, date: string, units: st
         ]
     )
 };
+                                        ]
+                        )
+};
