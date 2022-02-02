@@ -10,7 +10,7 @@ enabled: true
 declaration: get_users_by_username_username
 metadata:
   title: Twitter API v2.0
-  description: Accessing user information
+  description: Accessing user information via twitter API https://api.twitter.com/2/users/by/username/:username
   tags:
 security:
   public: true
