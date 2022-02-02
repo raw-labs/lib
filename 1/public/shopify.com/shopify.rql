@@ -1,0 +1,36 @@
+//
+// Licensed under the Apache License, Version 2.0 (the "License");
+// you may not use this file except in compliance with the License.
+// You may obtain a copy of the License at
+//
+// http://www.apache.org/licenses/LICENSE-2.0
+//
+//
+// Unless required by applicable law or agreed to in writing, software
+// distributed under the License is distributed on an "AS IS" BASIS,
+// WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied
+// See the License for the specific language governing permissions and
+// limitations under the License.
+//
+
+//
+// https://shopify.dev/api/admin-rest/2022-01/resources/accessscope#[get]/admin/oauth/access_scopes.json
+// Retrieves a list of access scopes associated with the access token.
+
+typealias access_scopes_response := record(
+    access_scopes: collection( record( 
+        handle: string
+    ))
+);
+
+access_scopes(  access_token: string,
+                shop: string
+            ) := {
+
+    read_json[access_scopes_response](  "https://"+shop+".myshopify.com/admin/oauth/access_scopes.json",
+                                        http_headers := [("access_token",access_token)],
+                                        http_token_url := "https://"+shop+".myshopify.com/admin/oauth/access_token",
+                                        http_renew_token_use_basic_auth := true
+                        )
+}
+
