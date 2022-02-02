@@ -19,14 +19,14 @@
 //
 
 typealias places_response := record(
-    `name`: string,
-    `place_id`: string,
-    `adm_area1`: string,
-    `adm_area2`: string nullable,
-    `country`: string,
-    `lat`: string,
-    `lon`: string,
-    `timezone`: string
+    name: string,
+    place_id: string,
+    adm_area1: string,
+    adm_area2: string nullable,
+    country: string,
+    lat: string,
+    lon: string,
+    timezone: string
 );
 
 
