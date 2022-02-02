@@ -89,15 +89,15 @@ find_places(text: string, key: string, language: string := "en") := {
 // Example usage
 // time_machine(place_id:="chicago",key:=secret("meteosource.com",date:="2020-01-23"))
 // 
-time_machine(place_id: string null := null, key: string, date: string, lat: string null := null, lon: string null := null, units: string := "auto") := {
+time_machine(key: string, date: string, place_id: string null := null, lat: string null := null, lon: string null := null, units: string := "auto") := {
 
     read_json[time_machine_response] ( "https://www.meteosource.com/api/v1/premium/time_machine", 
         http_args:=[
-            ("place_id": place_id),
-            ("lat": lat),
-            ("lon": lon),
-            ("date": date),
-            ("units": units),
+            ("place_id", place_id),
+            ("lat", lat),
+            ("lon", lon),
+            ("date", date),
+            ("units", units),
             ("key", key)
         ]
     )
