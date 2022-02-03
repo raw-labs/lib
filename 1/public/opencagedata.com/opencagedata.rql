@@ -42,9 +42,9 @@ typealias geocode_response := record(
                     y: double
                 ),
                 OSM: record(
-                    edit_url: string,
-                    note_url: string,
-                    url: string
+                    edit_url: string null,
+                    note_url: string null,
+                    url: string null
                 ),
                 UN_M49: record(
                     regions: record(
