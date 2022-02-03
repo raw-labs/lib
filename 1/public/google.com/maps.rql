@@ -19,11 +19,12 @@
 //
 typealias timezone_response := 
     record(
-            dstOffset: int,
-            rawOffset: int,
             status: string,
-            timeZoneId: string,
-            timeZoneName: string
+            dstOffset: int nullable,
+            errorMessage: string nullable,
+            rawOffset: int nullable,
+            timeZoneId: string nullable,
+            timeZoneName: string nullable
     );
 
 //
