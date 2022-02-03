@@ -80,9 +80,9 @@ typealias geocode_response := record(
                         WESTERN_ASIA : string null,
                         WESTERN_EUROPE : string null,
                         WORLD : string null
-                    ),
-                    statistical_groupings: collection(string)
-                ),
+                    ) null,
+                    statistical_groupings: collection(string) null
+                ) null,
                 calling_code: int null,
                 currency: record(
                     alternate_symbol: collection( string ) null,
