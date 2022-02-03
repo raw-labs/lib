@@ -13,4 +13,4 @@ metadata:
   description: Accessing users via https://api.twitter.com/2/users/:id
   tags:
 security:
-  public: true
+  public: false

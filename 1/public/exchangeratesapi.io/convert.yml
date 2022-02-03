@@ -11,6 +11,6 @@ declaration: convert
 codeFile: exchangeratesapi.rql
 format: json
 security:
-  public: true
+  public: false
 computeClass: normal
 enabled: true

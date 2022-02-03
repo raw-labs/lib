@@ -13,4 +13,4 @@ metadata:
   tags:
     - geocoding
 security:
-  public: true
+  public: false
