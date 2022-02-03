@@ -27,6 +27,50 @@ typealias timezone_response :=
             timeZoneName: string nullable
     );
 
+typealias geocode_response :=
+    record(
+        results: collection(
+            record(
+                address_components: collection(
+                    record(
+                        long_name: string,
+                        short_name: string,
+                        types: collection(string)
+                    )
+                ),
+                formatted_address: string,
+                geometry: record(
+                    bounds: record(
+                                northeast: record(
+                                    lat: double,
+                                    lng: double),
+                                southwest: record(
+                                    lat: double,
+                                    lng: double)
+                    ) null,
+                    location: record(
+                        lat: double,
+                        lng: double),
+                    location_type: string,
+                    viewport: record(
+                        northeast: record(
+                            lat: double,
+                            lng: double),
+                        southwest: record(
+                            lat: double,
+                            lng: double)
+                    )
+                ),
+                place_id: string,
+                plus_code: record(
+                    compound_code: string,
+                    global_code: string
+                ) null,
+                types: collection(string)
+            )
+        ),
+        status: string
+    );
 //
 // Example usage
 // timezone("39.6034810,-119.6822510","1331161200", secret("maps.google.com"))
@@ -36,6 +80,25 @@ timezone( location: string, timestamp: int, key: string) := {
                                 http_args:=[
                                             ("location", location),
                                             ("timestamp", cast(timestamp as string)),
+                                            ("key", key)
+                                ]
+    )
+};
+
+//
+// Example usage:
+// geocode("New York City", secret("maps.google.com"))
+// geocode("buckingham palace",secret("maps.google.com"))
+// geocode("the north pole","secret("maps.google.com"))
+// geocode("greece",secret("maps.google.com"))
+// geocode("the white house",secret("maps.google.com"))
+// geocode("1585 broadway, NYC",secret("maps.google.com"))
+//
+// parameters are an Address/Location Name + Key
+geocode( address: string, key: string) := {
+    read_json[geocode_response](  "https://maps.googleapis.com/maps/api/geocode/json",
+                                http_args:=[
+                                            ("address", address),
                                             ("key", key)
                                 ]
     )
