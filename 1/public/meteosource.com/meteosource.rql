@@ -94,9 +94,9 @@ find_places(text: string, key: string, language: string := "en") := {
 // Example usage
 // find_nearest_place("51.507","-0.1276",secret("meteosource.com"))
 // 
-find_nearest_place(lat: string, lon:string, key: string, language: string := "en") := {
+nearest_place(lat: string, lon:string, key: string, language: string := "en") := {
 
-    read_json[places_single_response](  "https://www.meteosource.com/api/v1/premium/find_nearest_place",
+    read_json[places_single_response](  "https://www.meteosource.com/api/v1/premium/nearest_place",
                                 http_args:=[
                                             ("lat", lat),
                                             ("lon", lon),
