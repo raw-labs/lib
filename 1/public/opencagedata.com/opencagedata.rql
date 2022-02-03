@@ -42,9 +42,9 @@ typealias geocode_response := record(
                     y: double
                 ),
                 OSM: record(
-                    edit_url: string,
-                    note_url: string,
-                    url: string
+                    edit_url: string null,
+                    note_url: string null,
+                    url: string null
                 ),
                 UN_M49: record(
                     regions: record(
@@ -80,29 +80,29 @@ typealias geocode_response := record(
                         WESTERN_ASIA : string null,
                         WESTERN_EUROPE : string null,
                         WORLD : string null
-                    ),
-                    statistical_groupings: collection(string)
-                ),
+                    ) null,
+                    statistical_groupings: collection(string) null
+                ) null,
                 calling_code: int null,
                 currency: record(
                     alternate_symbol: collection( string ) null,
-                    decimal_mark: string,
+                    decimal_mark: string null,
                     disambiguate_symbol: string null,
                     format: string null,
-                    html_entity : string,
-                    iso_code : string,
-                    iso_numeric : string,
-                    name : string,
-                    smallest_denomination : int,
-                    subunit : string,
-                    subunit_to_unit : int,
-                    symbol : string,
-                    symbol_first : int,
-                    thousands_separator : string
-                ),
-                flag : string,
-                geohash : string,
-                qibla : double,
+                    html_entity : string null,
+                    iso_code : string null,
+                    iso_numeric : string null,
+                    name : string null,
+                    smallest_denomination : int null,
+                    subunit : string null,
+                    subunit_to_unit : int null,
+                    symbol : string null,
+                    symbol_first : int null,
+                    thousands_separator : string null
+                ) null,
+                flag : string null,
+                geohash : string null,
+                qibla : double null,
                 roadinfo : record(
                     drive_on : string null,
                     road : string null,
@@ -116,7 +116,7 @@ typealias geocode_response := record(
                     toll: string null,
                     surface: string null,
                     width: double null
-                ),
+                ) null,
                 sun : record(
                     rise : record(
                         apparent : int,

@@ -240,7 +240,7 @@ convert(access_key: string, `from`: string, `to`: string, `amount`: double, `dat
                                             ("access_key", access_key),
                                             ("from", `from`),
                                             ("to", `to`),
-                                            ("amount", `amount`),
+                                            ("amount", cast( `amount` as string ) ),
                                             ("date", `date`)
                                         ]
                         )

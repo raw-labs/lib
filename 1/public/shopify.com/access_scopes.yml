@@ -13,4 +13,4 @@ metadata:
   tags:
     - Shopify
 security:
-  public: true
+  public: false

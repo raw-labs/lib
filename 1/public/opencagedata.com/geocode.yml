@@ -2,15 +2,15 @@
 raw: 0.9
 endpoint: GET
 code: rql
-codeFile: twitter.rql
+codeFile: opencagedata.rql
 format: json
 computeClass: normal
-computeLimitSeconds: 30
 enabled: true
-declaration: get_users_id_tweets
+declaration: geocode
 metadata:
-  title: Twitter API v2.0
-  description: Accessing tweets via https://api.twitter.com/2/users/:id/tweets
+  title: opencagedata.com geocoding API
+  description: Reverse and forward geocoding https://opencagedata.com/api
   tags:
+    - geocoding
 security:
-  public: true
+  public: false
