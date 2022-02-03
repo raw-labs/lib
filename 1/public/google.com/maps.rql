@@ -14,8 +14,8 @@
 //
 
 //
-// TimeZone API's from
-// https://developers.google.com/maps/documentation/timezone/overview
+//  API's from
+// https://developers.google.com/maps/documentation/
 //
 typealias timezone_response := 
     record(
