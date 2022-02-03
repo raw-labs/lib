@@ -18,7 +18,8 @@
 // https://meteosource.com/
 //
 
-typealias places_response := collection(record(
+typealias places_single_response := 
+  record (
     name: string,
     place_id: string,
     adm_area1: string,
@@ -26,8 +27,12 @@ typealias places_response := collection(record(
     country: string,
     lat: string,
     lon: string,
-    timezone: string)
+    timezone: string
 );
+
+typealias places_multi_response := 
+  collection ( places_single_response )
+;
 
 typealias time_machine_response := 
     record(
@@ -76,7 +81,7 @@ typealias time_machine_response :=
 // 
 find_places(text: string, key: string, language: string := "en") := {
 
-    read_json[places_response](  "https://www.meteosource.com/api/v1/premium/find_places",
+    read_json[places_multi_response](  "https://www.meteosource.com/api/v1/premium/find_places",
                                 http_args:=[
                                             ("text", text),
                                             ("language", language),
@@ -91,7 +96,7 @@ find_places(text: string, key: string, language: string := "en") := {
 // 
 find_nearest_place(lat: string, lon:string, key: string, language: string := "en") := {
 
-    read_json[places_response](  "https://www.meteosource.com/api/v1/premium/find_nearest_place",
+    read_json[places_single_response](  "https://www.meteosource.com/api/v1/premium/find_nearest_place",
                                 http_args:=[
                                             ("lat", lat),
                                             ("lon", lon),
