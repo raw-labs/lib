@@ -87,6 +87,22 @@ find_places(text: string, key: string, language: string := "en") := {
 
 //
 // Example usage
+// find_nearest_place("51.507","-0.1276",secret("meteosource.com"))
+// 
+find_nearest_place(lat: string, lon:string, key: string, language: string := "en") := {
+
+    read_json[places_response](  "https://www.meteosource.com/api/v1/premium/find_nearest_place",
+                                http_args:=[
+                                            ("lat", lat),
+                                            ("lon", lon),
+                                            ("language", language),
+                                            ("key", key)
+                                ]
+    )
+};
+
+//
+// Example usage
 // time_machine(place_id:="chicago",key:=secret("meteosource.com",date:="2020-01-23"))
 // 
 time_machine(key: string, date: date, place_id: string null := null, lat: string null := null, lon: string null := null, units: string := "auto") := {
