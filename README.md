@@ -9,7 +9,7 @@ https://docs.raw-labs.com/latest/rql/packages.html
 
 * [exchangeratesapi.io](./1/public/exchangeratesapi.io) - exchange rates API
 * [google.com](./1/public/google.com) - maps, geocoding, timezone APIs
-* [meteosource.com](./1/public/metosource.com) - weather APIs
+* [meteosource.com](./1/public/meteosource.com) - weather APIs
 * [open-notify.org](./1/public/open-notify.org) - open APIs, from space, inc. ISS position
 * [opencagedata.com](./1/public/opencagedata.com) - geocoding API
 * [twitter.com](./1/public/twitter.com) - twitter v2 APIs
