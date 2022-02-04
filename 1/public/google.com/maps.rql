@@ -1,0 +1,105 @@
+//
+// Licensed under the Apache License, Version 2.0 (the "License");
+// you may not use this file except in compliance with the License.
+// You may obtain a copy of the License at
+//
+// http://www.apache.org/licenses/LICENSE-2.0
+//
+//
+// Unless required by applicable law or agreed to in writing, software
+// distributed under the License is distributed on an "AS IS" BASIS,
+// WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied
+// See the License for the specific language governing permissions and
+// limitations under the License.
+//
+
+//
+//  API's from
+// https://developers.google.com/maps/documentation/
+//
+typealias timezone_response := 
+    record(
+            status: string,
+            dstOffset: int nullable,
+            errorMessage: string nullable,
+            rawOffset: int nullable,
+            timeZoneId: string nullable,
+            timeZoneName: string nullable
+    );
+
+typealias geocode_response :=
+    record(
+        results: collection(
+            record(
+                address_components: collection(
+                    record(
+                        long_name: string,
+                        short_name: string,
+                        types: collection(string)
+                    )
+                ),
+                formatted_address: string,
+                geometry: record(
+                    bounds: record(
+                                northeast: record(
+                                    lat: double,
+                                    lng: double),
+                                southwest: record(
+                                    lat: double,
+                                    lng: double)
+                    ) null,
+                    location: record(
+                        lat: double,
+                        lng: double),
+                    location_type: string,
+                    viewport: record(
+                        northeast: record(
+                            lat: double,
+                            lng: double),
+                        southwest: record(
+                            lat: double,
+                            lng: double)
+                    )
+                ),
+                place_id: string,
+                plus_code: record(
+                    compound_code: string,
+                    global_code: string
+                ) null,
+                types: collection(string)
+            )
+        ),
+        status: string
+    );
+//
+// Example usage
+// timezone("39.6034810,-119.6822510","1331161200", secret("maps.google.com"))
+// parameters are Lat/Lon + Timestamp + Key
+timezone( location: string, timestamp: int, key: string) := {
+    read_json[timezone_response](  "https://maps.googleapis.com/maps/api/timezone/json",
+                                http_args:=[
+                                            ("location", location),
+                                            ("timestamp", cast(timestamp as string)),
+                                            ("key", key)
+                                ]
+    )
+};
+
+//
+// Example usage:
+// geocode("New York City", secret("maps.google.com"))
+// geocode("buckingham palace",secret("maps.google.com"))
+// geocode("the north pole","secret("maps.google.com"))
+// geocode("greece",secret("maps.google.com"))
+// geocode("the white house",secret("maps.google.com"))
+// geocode("1585 broadway, NYC",secret("maps.google.com"))
+//
+// parameters are an Address/Location Name + Key
+geocode( address: string, key: string) := {
+    read_json[geocode_response](  "https://maps.googleapis.com/maps/api/geocode/json",
+                                http_args:=[
+                                            ("address", address),
+                                            ("key", key)
+                                ]
+    )
+};
