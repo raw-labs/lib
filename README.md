@@ -1,30 +1,23 @@
+![RAW Labs](https://avatars.githubusercontent.com/u/11390046?s=100&v=4)
 # RAW Labs Library 
 
-## exchangeratesapi.io
+Reusable data from places around the web.
+We maintain this library in order for our customers to quickly connect to useful data sets
 
-Exchange rates API 
+To use these, simply follow the IMPORT statement in your RQL code, see:<p>
+https://docs.raw-labs.com/latest/rql/packages.html
 
-## google.com
+* [exchangeratesapi.io](./1/public/exchangeratesapi.io) - exchange rates API
+* [google.com](./1/public/google.com) - maps, geocoding, timezone APIs
+* [meteosource.com](./1/public/metosource.com) - weather APIs
+* [open-notify.org](./1/public/open-notify.org) - open APIs, from space, inc. ISS position
+* [opencagedata.com](./1/public/opencagedata.com) - geocoding API
+* [twitter.com](./1/public/twitter.com) - twitter v2 APIs
+* [shopify.com](./1/public/shopify.com) - shopify API
 
-Maps, Geocoding and Timezone API
+Read our Blogs and Tutorials too:
+https://www.raw-labs.com/blog
 
-## meteosource.com
+Follow us on on Twitter:
+https://twitter.com/raw_labs
 
-Weather APIs
-
-## open-notify.org
-
-Open APIs from Space<p>
-ISS position above Earth.
-
-## opencagedata.com
-
-Geocoding API<p>
-
-## twitter.com
-
-Twitter v2 API implementation<p>
-
-## shopify.com
-
-Shopify APIs
