@@ -1,0 +1,91 @@
+//READ_JSON("https://www.dropbox.com/s/7eve5ki6u1g4gi2/new%20york%20city%202021-03-01%20to%202021-03-31.json?dl=1")
+
+//
+// Licensed under the Apache License, Version 2.0 (the "License");
+// you may not use this file except in compliance with the License.
+// You may obtain a copy of the License at
+//
+// http://www.apache.org/licenses/LICENSE-2.0
+//
+//
+// Unless required by applicable law or agreed to in writing, software
+// distributed under the License is distributed on an "AS IS" BASIS,
+// WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied
+// See the License for the specific language governing permissions and
+// limitations under the License.
+//
+
+//
+// Weather API's from
+// https://weather.visualcrossing.com
+//
+
+typealias timeline_response := 
+record(
+  queryCost: int,
+  latitude: double,
+  longitude: double,
+  resolvedAddress: string,
+  address: string,
+  timezone: string,
+  tzoffset: double,
+  days: collection(
+    record(
+      datetime: string,
+      datetimeEpoch: int,
+      tempmax: double,
+      tempmin: double,
+      temp: double,
+      feelslikemax: double,
+      feelslikemin: double,
+      feelslike: double,
+      precip: double,
+      preciptype: null,
+      snow: double,
+      snowdepth: double,
+      windgust: double,
+      windspeed: double,
+      hours: collection(
+        record(
+          datetime: string,
+          datetimeEpoch: int,
+          temp: double,
+          feelslike: double,
+          precip: double,
+          snow: double,
+          snowdepth: double,
+          preciptype: null,
+          windgust: double nullable,
+          windspeed: double
+        )
+      )
+    )
+  )
+)
+
+//
+// Example usage
+// timeline(key:=secret("weather.visualcrossing.com"),location:="new%20york%20city",date1:= date "2021-03-14", date2:= date "2021-03-14", unitGroup:="metric" )
+// 
+// location:  is the address, partial address or latitude,longitude location for which to retrieve weather data. You can also use US ZIP Codes.
+// unitGroup: The system of units used for the output data. Supported values are us, uk, metric, base. Defaults to US system of unit
+// note this is a subset of all the fields. see documentation for further fields than can be delivered
+timeline( 
+    key: string, 
+    location: string, 
+    date1: date, 
+    date2: date, 
+    unitGroup: string null := null
+    ) := {
+
+    read_json[timeline_response] 
+        ( "https://weather.visualcrossing.com/VisualCrossingWebServices/rest/services/timeline/" + 
+        location + "/" + cast(date1 as string) + "/" + cast(date2 as string), 
+        http_args:=[
+            ("key", key),
+            ("elements","datetime,datetimeEpoch,name,tempmax,tempmin,temp,feelslikemax,feelslikemin,feelslike,precip,preciptype,snow,snowdepth,windgust,windspeed,hours"),
+            ("unitGroup", unitGroup),
+            ("contentType", "json") // also exist: csv and excel
+        ]
+    )
+};
