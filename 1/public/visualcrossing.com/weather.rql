@@ -40,11 +40,10 @@ record(
       feelslikemin: double,
       feelslike: double,
       precip: double,
-      preciptype: null,
-      snow: double,
-      snowdepth: double,
-      windgust: double,
-      windspeed: double,
+      snow: double nullable,
+      snowdepth: double nullable,
+      windgust: double nullable,
+      windspeed: double nullable,
       hours: collection(
         record(
           datetime: string,
@@ -52,11 +51,10 @@ record(
           temp: double,
           feelslike: double,
           precip: double,
-          snow: double,
-          snowdepth: double,
-          preciptype: null,
+          snow: double nullable,
+          snowdepth: double nullable,
           windgust: double nullable,
-          windspeed: double
+          windspeed: double nullable
         )
       )
     )
@@ -65,11 +63,10 @@ record(
 
 //
 // Example usage
-// timeline(key:=secret("weather.visualcrossing.com"),location:="new%20york%20city",date1:= date "2021-03-14", date2:= date "2021-03-14", unitGroup:="metric" )
+// timeline(key:=secret("weather.visualcrossing.com",location:="new york city",date1:= date "2021-03-14", date2:= date "2021-03-14", unitGroup:="metric",include:= "hourly" )
 // 
 // location:  is the address, partial address or latitude,longitude location for which to retrieve weather data. You can also use US ZIP Codes.
 // unitGroup: The system of units used for the output data. Supported values are us, uk, metric, base. Defaults to US system of unit
-// note this is a subset of all the fields. see documentation for further fields than can be delivered
 timeline( 
     key: string, 
     location: string, 
@@ -83,7 +80,7 @@ timeline(
         location + "/" + cast(date1 as string) + "/" + cast(date2 as string), 
         http_args:=[
             ("key", key),
-            ("elements","datetime,datetimeEpoch,name,tempmax,tempmin,temp,feelslikemax,feelslikemin,feelslike,precip,preciptype,snow,snowdepth,windgust,windspeed,hours"),
+            ("elements","datetime,datetimeEpoch,name,tempmax,tempmin,temp,feelslikemax,feelslikemin,feelslike,precip,snow,snowdepth,windgust,windspeed,hours"),
             ("unitGroup", unitGroup),
             ("contentType", "json") // also exist: csv and excel
         ]
