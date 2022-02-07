@@ -14,7 +14,6 @@
 //
 
 // Statistical function exanples
-// To do: add functions showing SciPy implementations
 
 // usage: 
 // pearson_correlation( 
@@ -40,4 +39,25 @@ pearson_correlation ( data: collection( record( x: double, y: double) ) ) := {
   ((t.num * t.sigXY) - (t.sigX * t.sigY)) / 
   POWER( ((t.num * t.sigX2) - POWER(t.sigX,2)) * ((t.num * t.sigY2) - POWER(t.sigY,2)) , 0.5)
 
+};
+
+// usage: 
+// spearmanrank_correlation( 
+//    [(x: 20, y: 40), 
+//     (x: 13, y: 26), 
+//     (x: 50, y: 100), 
+//     (x: 32, y: 64)
+//    ];
+// this example shows a python integration. 
+// Returns (a collection of) two doubles: rho and p
+
+spearmanrank_correlation ( data: collection( record( x: double, y: double) ) ) := {
+
+  spearmanr := \python( x: collection(double), y: collection(double) ): collection(double) -> $$$
+      from scipy.stats import spearmanr
+      rho, p = spearmanr(x,y)
+      return rho, p
+  $$$;
+
+  spearmanr ( (select x from data), (select y from data) )
 };
