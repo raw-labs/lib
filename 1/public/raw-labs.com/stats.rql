@@ -24,7 +24,7 @@
 //    ];
 // 
 
-pearson_correlation ( data: collection( record( x: double nullable, y: double nullable) ) ) := {
+pearson_correlation ( data: collection( record( x: double, y: double) ) ) := {
 
   t:= SELECT 
     count(*)         as num,
@@ -53,7 +53,7 @@ pearson_correlation ( data: collection( record( x: double nullable, y: double nu
 
 spearmanrank_correlation ( data: collection( record( x: double, y: double) ) ) := {
 
-  spearmanr := \python( x: collection(double nullable), y: collection(double nullable) ): collection(double nullable) -> $$$
+  spearmanr := \python( x: collection(double), y: collection(double) ): collection(double) -> $$$
       from scipy.stats import spearmanr
       rho, p = spearmanr(x,y)
       return rho, p
