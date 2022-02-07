@@ -15,7 +15,7 @@ https://docs.raw-labs.com/latest/rql/packages.html
 | [open-notify.org](./1/public/open-notify.org)         | open APIs, from space, inc. ISS position   | No         |
 | [opencagedata.com](./1/public/opencagedata.com)       | geocoding API                              | No         |
 | [visualcrossing.com](./1/public/visualcrossing.com)   | Weather API                                | Yes        |
-  
+| [raw-labs.com](./1/public/raw-labs.com)               | RAW statistical functions                  | No         |  
 
 Read our Blogs and Tutorials too:
 https://www.raw-labs.com/blog
