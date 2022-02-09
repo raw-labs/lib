@@ -13,6 +13,8 @@ https://docs.raw-labs.com/latest/rql/packages.html
 * [meteosource.com](./1/public/meteosource.com) - weather APIs
 * [open-notify.org](./1/public/open-notify.org) - open APIs, from space, inc. ISS position
 * [opencagedata.com](./1/public/opencagedata.com) - geocoding API
+* [twitter.com](./1/public/twitter.com) - Twitter V2 API
+* [cloudflare.com](./1/public/cloudflare.com) - Cloudflare Workers & KV API
 
 Read our Blogs and Tutorials too:
 https://www.raw-labs.com/blog

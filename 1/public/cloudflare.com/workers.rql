@@ -1,0 +1,128 @@
+//
+// Licensed under the Apache License, Version 2.0 (the "License");
+// you may not use this file except in compliance with the License.
+// You may obtain a copy of the License at
+//
+// http://www.apache.org/licenses/LICENSE-2.0
+//
+//
+// Unless required by applicable law or agreed to in writing, software
+// distributed under the License is distributed on an "AS IS" BASIS,
+// WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied
+// See the License for the specific language governing permissions and
+// limitations under the License.
+//
+
+//
+// https://api.cloudflare.com/#workers-kv-namespace-write-key-value-pair
+//
+
+typealias response_putvalue := record(
+    success: bool
+);
+
+putvalue(   x_auth_key: string, 
+            x_auth_email: string,
+            account_id: string,
+            namespace: string,
+            key: string,
+            value: string,
+            expiration: int null := null,
+            expiration_ttl: int null := null ) := {
+    read_json[response_putvalue](  "https://api.cloudflare.com/client/v4/accounts/"+account_id+"/storage/kv/namespaces/"+namespace+"/values/"+key,
+                    http_method:= "put",
+                    http_headers:=[
+                                ("X-Auth-Email",x_auth_email),
+                                ("X-Auth-Key", x_auth_key),
+                                ("Content-Type", "text/plain")
+                            ],
+                    http_args := [
+                                ("expiration", cast( expiration as string) ),
+                                ("expiration_ttl", cast( expiration_ttl as string) )
+                            ],
+                    http_body_string := value
+                        )
+}
+
+//
+// https://api.cloudflare.com/#workers-kv-namespace-read-key-value-pair
+// returns the string containing the value if existing
+
+getvalue(   x_auth_key: string, 
+            x_auth_email: string,
+            account_id: string,
+            namespace: string,
+            key: string) := {
+    http(  "https://api.cloudflare.com/client/v4/accounts/"+account_id+"/storage/kv/namespaces/"+namespace+"/values/"+key,
+                    method:= "get",
+                    headers:=[
+                            ("X-Auth-Email",x_auth_email),
+                            ("X-Auth-Key", x_auth_key)
+                            ]
+            ).data
+}
+
+//
+// https://api.cloudflare.com/#workers-kv-namespace-list-a-namespace-s-keys
+// Returns a collection of strings containing all key values from a Namespace
+// up to 1.000 by default
+//
+
+typealias response_list_namespace_keys := record(
+    success: bool,
+    result: collection(record(
+        name: string,
+        expiration: int null,
+        metadata: record() null
+    )),
+    result_info: record(
+        count: int,
+        cursor: string
+    )
+);
+
+list_namespace_keys(    x_auth_key: string, 
+                        x_auth_email: string,
+                        account_id: string,
+                        namespace: string,
+                        `limit`: int null := null,
+                        cursor: string null := null,
+                        prefix: string null := null) := {
+    res := read_json[response_list_namespace_keys](  "https://api.cloudflare.com/client/v4/accounts/"+account_id+"/storage/kv/namespaces/"+namespace+"/keys",
+                    http_method:= "get",
+                    http_args:=[
+                        ("limit", cast(`limit` as string)),
+                        ("cursor",cursor),
+                        ("prefix",prefix)
+                    ],
+                    http_headers:=[
+                                ("X-Auth-Email",x_auth_email),
+                                ("X-Auth-Key", x_auth_key),
+                                ("Content-Type", "application/javascript")
+                            ]
+                    )
+    select name from res.result
+}
+
+//
+// https://api.cloudflare.com/#worker-script-upload-worker
+// 
+
+upload_worker(  x_auth_key: string, 
+                x_auth_email: string,
+                account_id: string,
+                script_name: string,
+                script: string ) := {
+
+    read_json[response](  "https://api.cloudflare.com/client/v4/accounts/"+account_id+"/workers/scripts/"+script_name,
+                    http_method:= "put",
+                    http_headers:=[
+                                ("X-Auth-Email",x_auth_email),
+                                ("X-Auth-Key", x_auth_key),
+                                ("Content-Type", "application/javascript")
+                            ],
+                    http_body_string := script
+                    )
+}
+
+
