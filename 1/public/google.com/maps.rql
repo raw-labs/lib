@@ -81,7 +81,9 @@ timezone( location: string, timestamp: int, key: string) := {
                                             ("location", location),
                                             ("timestamp", cast(timestamp as string)),
                                             ("key", key)
-                                ]
+                                ],
+                                cache := interval "1 day" // cache by default, static data
+
     )
 };
 
@@ -100,6 +102,7 @@ geocode( address: string, key: string) := {
                                 http_args:=[
                                             ("address", address),
                                             ("key", key)
-                                ]
+                                ],
+                                cache := interval "1 day" // cache by default, static data
     )
 };
