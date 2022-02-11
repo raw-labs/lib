@@ -17,7 +17,7 @@
 // https://api.cloudflare.com/#workers-kv-namespace-write-key-value-pair
 //
 
-typealias response_putvalue := record(
+typealias response := record(
     success: bool
 );
 
@@ -29,7 +29,7 @@ putvalue(   x_auth_key: string,
             value: string,
             expiration: int null := null,
             expiration_ttl: int null := null ) := {
-    read_json[response_putvalue](  "https://api.cloudflare.com/client/v4/accounts/"+account_id+"/storage/kv/namespaces/"+namespace+"/values/"+key,
+    read_json[response](  "https://api.cloudflare.com/client/v4/accounts/"+account_id+"/storage/kv/namespaces/"+namespace+"/values/"+key,
                     http_method:= "put",
                     http_headers:=[
                                 ("X-Auth-Email",x_auth_email),
@@ -113,12 +113,12 @@ deletevalue(    x_auth_key: string,
                 account_id: string,
                 namespace: string,
                 key: string) := {
-                http(  "https://api.cloudflare.com/client/v4/accounts/"+account_id+"/storage/kv/namespaces/"+namespace+"/values/"+key,
-                    method:= "delete",
-                    headers:=[
-                            ("X-Auth-Email",x_auth_email),
-                            ("X-Auth-Key", x_auth_key)
-                            ]
-            ).data
+                    read_json[response](  "https://api.cloudflare.com/client/v4/accounts/"+account_id+"/storage/kv/namespaces/"+namespace+"/values/"+key,
+                        http_method:= "delete",
+                        http_headers:=[
+                                    ("X-Auth-Email",x_auth_email),
+                                    ("X-Auth-Key", x_auth_key)
+                                ]
+                    )
 }
 
