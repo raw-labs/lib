@@ -16,6 +16,14 @@ https://api.cloudflare.com/#workers-kv-namespace-read-key-value-pair
 returns the string containing the value if existing  
 `getvalue( x_auth_key: string, x_auth_email: string, account_id: string, namespace: string, key: string)` 
 <br><br>
+Deleting a KV  
+https://api.cloudflare.com/#workers-kv-namespace-delete-key-value-pair  
+returns the cloudflare API message  
+`deletevalue( x_auth_key: string, x_auth_email: string, account_id: string, namespace: string, key: string)` 
+<br><br>
+List namespaces  
 https://api.cloudflare.com/#workers-kv-namespace-list-a-namespace-s-keys  
 Returns a collection of strings containing all key values from a Namespace up to 1.000 by default  
-`list_namespace_keys(x_auth_key: string, x_auth_email: string, account_id: string, namespace: string, `limit`: int null := null, cursor: string null := null, prefix: string null := null)` 
+`list_namespace_keys(x_auth_key: string, x_auth_email: string, account_id: string, namespace: string, limit: int null := null, cursor: string null := null, prefix: string null := null)`<br>
+
+
