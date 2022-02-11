@@ -120,6 +120,5 @@ deletevalue(    x_auth_key: string,
                             ("X-Auth-Key", x_auth_key)
                             ]
             ).data
-            }
-)
+}
 
