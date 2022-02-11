@@ -104,36 +104,4 @@ list_namespace_keys(    x_auth_key: string,
     select name from res.result
 }
 
-//
-// https://api.cloudflare.com/#worker-script-upload-worker
-// 
-
-typealias response_upload_worker := record(
-                                    success: bool,
-                                    result: record(
-                                        script: string null,
-                                        etag: string null,
-                                        size: int null,
-                                        usage_model: string null,
-                                        modified_on: string null,
-                                    )
-                                );
-
-upload_worker(  x_auth_key: string, 
-                x_auth_email: string,
-                account_id: string,
-                script_name: string,
-                script: string ) := {
-
-    read_json[response_upload_worker](  "https://api.cloudflare.com/client/v4/accounts/"+account_id+"/workers/scripts/"+script_name,
-                    http_method:= "put",
-                    http_headers:=[
-                                ("X-Auth-Email",x_auth_email),
-                                ("X-Auth-Key", x_auth_key),
-                                ("Content-Type", "application/javascript")
-                            ],
-                    http_body_string := script
-                    )
-}
-
 
