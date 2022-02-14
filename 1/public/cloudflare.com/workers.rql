@@ -68,15 +68,6 @@ getvalue(   x_auth_key: string,
 // up to 1.000 by default
 //
 
-
-list_namespace_keys(    x_auth_key: string, 
-                        x_auth_email: string,
-                        account_id: string,
-                        namespace: string,
-                        `limit`: int null := null,
-                        cursor: string null := null,
-                        prefix: string null := null) := {
-
 typealias response_list_namespace_keys := record(
     success: bool,
     result: collection(record(
@@ -90,6 +81,13 @@ typealias response_list_namespace_keys := record(
     )
 );
 
+list_namespace_keys(    x_auth_key: string, 
+                        x_auth_email: string,
+                        account_id: string,
+                        namespace: string,
+                        `limit`: int null := null,
+                        cursor: string null := null,
+                        prefix: string null := null) := {
 
     res := read_json[response_list_namespace_keys](  "https://api.cloudflare.com/client/v4/accounts/"+account_id+"/storage/kv/namespaces/"+namespace+"/keys",
                     http_method:= "get",
