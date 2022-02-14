@@ -10,7 +10,7 @@ https://docs.raw-labs.com/latest/rql/packages.html
 | Library                                               | Details                                    | Needs Key? |
 | -------                                               | ---                                        | ---        |
 | [exchangeratesapi.io](./1/public/exchangeratesapi.io) | exchange rates API                         | No         |
-| [google.com](./1/public/google.com)                   | maps, geocoding, timezone APIs             | Yes        |
+| [google.com](./1/public/google.com)                   | maps: geocoding, timezone APIs plus language: analyze entities             | Yes        |
 | [meteosource.com](./1/public/meteosource.com)         | weather APIs                               | Yes        |
 | [open-notify.org](./1/public/open-notify.org)         | open APIs, from space, inc. ISS position   | No         |
 | [opencagedata.com](./1/public/opencagedata.com)       | geocoding API                              | No         |
