@@ -42,6 +42,12 @@ typealias analyze_entities_response :=
         language: string
     );
 
+// entity extraction and sentiment
+// example: 
+// key:=secret("language.google.com");
+// content:= "Michelangelo Caravaggio, Italian painter, is known for 'The Calling of Saint Matthew'";
+// analyze_entities( key , content )
+
 analyze_entities( 
     key: string, 
     content: string , 
