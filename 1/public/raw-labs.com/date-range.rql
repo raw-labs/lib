@@ -15,7 +15,7 @@
 
 //
 // returns a collection of string dates between d1 and d2
-// return dates are "DD-MM-YYYY"
+// return dates are "yyyy-MM-dd"
 //
 
 date_range(start_date: date, end_date: date) : collection(string) := {
