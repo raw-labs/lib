@@ -1,0 +1,77 @@
+
+//
+// Licensed under the Apache License, Version 2.0 (the "License");
+// you may not use this file except in compliance with the License.
+// You may obtain a copy of the License at
+//
+// http://www.apache.org/licenses/LICENSE-2.0
+//
+//
+// Unless required by applicable law or agreed to in writing, software
+// distributed under the License is distributed on an "AS IS" BASIS,
+// WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied
+// See the License for the specific language governing permissions and
+// limitations under the License.
+//
+
+//
+// OpenGraph extractor API from:
+// https://opengraph.io
+//
+typealias site_response := 
+  record(
+    hybridGraph: record(
+      title: string,
+      description: string,
+      type: string,
+      url: string,
+      site_name: string,
+      image: string nullable
+    ),
+    openGraph: record(
+      title: string nullable,
+      description: string nullable,
+      type: string nullable,
+      url: string nullable,
+      site_name: string nullable
+    ),
+    htmlInferred: record(
+      title: string,
+      description: string,
+      type: string,
+      url: string,
+      site_name: string,
+      images: collection(string) nullable,
+      image_guess: string nullable
+    ),
+    requestInfo: record(
+      redirects: int,
+      host: string,
+      responseCode: int,
+      cache_ok: bool,
+      max_cache_age: int,
+      accept_lang: string,
+      url: string,
+      full_render: bool,
+      use_proxy: bool,
+      use_premium: bool,
+      responseLength: string,
+      responseContentType: string
+    ),
+    accept_lang: string,
+    is_cache: bool,
+    url: string
+  );
+
+// to be replaced with native urlencode function in RQL when available
+urlencode := \python(a: string nullable): string -> $$$
+  import urllib.parse
+  return urllib.parse.quote(a,safe="")
+$$$;
+
+// usage:
+// site( "https://bbc.co.uk" , secret("opengraph.io") )
+//
+site(url: string, key: string, accept_lang: string nullable := "auto") := {
+   READ_JSON[site_response]("https://opengraph.io/api/1.1/site/" + urlencode(url) + "?app_id=" + key, http_args := [("accept_lang",accept_lang)])
+};
