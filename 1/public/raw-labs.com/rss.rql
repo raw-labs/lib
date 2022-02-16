@@ -23,17 +23,22 @@ typealias rss_type :=
             image: record(
                 url: string,
                 title: string,
-                link: string
-            ),
-            generator: string,
-            lastBuildDate: string,
-            pubDate: string,
-            copyright: string,
-            language: string,
-            ttl: int,
+                link: string,
+                width: int nullable,
+                height: int nullable,
+                description: string nullable
+            ) nullable,
+            generator: string nullable,
+            lastBuildDate: string nullable,
+            pubDate: string nullable,
+            rating: string nullable,
+            copyright: string nullable,
+            language: string nullable,
+            ttl: int nullable,
+            textInput
             info: record(
                 `@uri`: string
-            ),
+            ) nullable,
             link: collection(
                 record(
                     `@rel`: string nullable,
@@ -45,12 +50,13 @@ typealias rss_type :=
             item: collection(
                 record(
                     title: string,
-                    description: string nullable,
                     link: string,
+                    description: string nullable,
+                    author: string nullable
                     guid: record(
                         `@isPermaLink`: bool,
                         `#text`: collection(string)
-                    ),
+                    ) nullable,
                     pubDate: string nullable,
                     `group`: record(
                         content: collection(
