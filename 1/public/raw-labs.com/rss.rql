@@ -35,7 +35,6 @@ typealias rss_type :=
             copyright: string nullable,
             language: string nullable,
             ttl: int nullable,
-            textInput
             info: record(
                 `@uri`: string
             ) nullable,
