@@ -1,3 +1,6 @@
+// FROM `github://raw-labs/demos/1/public/RSS-analysis/rss-analysis.rql`
+//     IMPORT rss_analysis;
+
 //
 // Licensed under the Apache License,Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
@@ -51,8 +54,7 @@ typealias rss_type :=
                     title: string,
                     description: string nullable,
                     link: string,
-
-                    author: string nullable
+                    author: string nullable,
                     guid: record(
                         `@isPermaLink`: bool,
                         `#text`: collection(string)
@@ -78,7 +80,6 @@ typealias rss_type :=
 // return a RSS document
 // usage:
 // read_rss("http://rss.cnn.com/rss/edition_world.rss")
-
 read_rss(url: string, cache: interval nullable) := {
    READ_XML[rss_type](url, cache := cache)
 };
