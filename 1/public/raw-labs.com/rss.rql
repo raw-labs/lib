@@ -16,7 +16,7 @@
 
 typealias rss_type := 
     record(
-        @version: double,
+        `@version`: double,
         channel: record(
             title: string,
             description: string,
@@ -32,14 +32,14 @@ typealias rss_type :=
             language: string,
             ttl: int,
             info: record(
-                @uri: string
+                `@uri`: string
             ),
             link: collection(
                 record(
-                    @rel: string nullable,
-                    @type: string nullable,
-                    @href: string nullable,
-                    #text: string nullable
+                    `@rel`: string nullable,
+                    `@type`: string nullable,
+                    `@href`: string nullable,
+                    `#text`: string nullable
                 )
             ),
             item: collection(
@@ -48,18 +48,18 @@ typealias rss_type :=
                     description: string nullable,
                     link: string,
                     guid: record(
-                        @isPermaLink: bool,
-                        #text: collection(string)
+                        `@isPermaLink`: bool,
+                        `#text`: collection(string)
                     ),
                     pubDate: string nullable,
-                    group: record(
+                    `group`: record(
                         content: collection(
                             record(
-                                @medium: string,
-                                @url: string,
-                                @height: int,
-                                @width: int,
-                                @type: string
+                                `@medium`: string,
+                                `@url`: string,
+                                `@height`: int,
+                                `@width`: int,
+                                `@type`: string
                             )
                         )
                     ) nullable
