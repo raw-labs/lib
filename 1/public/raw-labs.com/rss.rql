@@ -50,13 +50,15 @@ typealias rss_type :=
             item: collection(
                 record(
                     title: string,
-                    link: string,
                     description: string nullable,
+                    link: string,
+
                     author: string nullable
                     guid: record(
                         `@isPermaLink`: bool,
                         `#text`: collection(string)
                     ) nullable,
+                    comments: string nullable,
                     pubDate: string nullable,
                     `group`: record(
                         content: collection(
