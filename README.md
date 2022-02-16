@@ -19,7 +19,8 @@ https://docs.raw-labs.com/latest/rql/packages.html
 | [twitter.com](./1/public/twitter.com)                 | Twitter V2 API                             | Yes        |
 | [cloudflare.com](./1/public/cloudflare.com)           | Cloudflare Workers & KV API                | Yes        | 
 | [opengraphr.com](./1/public/opengraphr.com)           | OpenGraph URL metadata extractor API           | Yes        | 
-  
+| [opengraph.io](./1/public/opengraph.io)               | OpenGraph URL metadata extractor API           | Yes        | 
+ 
 
 Read our Blogs and Tutorials too:
 https://www.raw-labs.com/blog
