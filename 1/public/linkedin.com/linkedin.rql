@@ -1,0 +1,48 @@
+//
+// Licensed under the Apache License, Version 2.0 (the "License");
+// you may not use this file except in compliance with the License.
+// You may obtain a copy of the License at
+//
+// http://www.apache.org/licenses/LICENSE-2.0
+//
+//
+// Unless required by applicable law or agreed to in writing, software
+// distributed under the License is distributed on an "AS IS" BASIS,
+// WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied
+// See the License for the specific language governing permissions and
+// limitations under the License.
+//
+
+// https://docs.microsoft.com/en-us/linkedin/marketing/getting-started
+
+//
+// Retrieves the number of followers for an organization
+//
+// https://docs.microsoft.com/en-us/linkedin/marketing/integrations/community-management/organizations/organization-lookup-api?tabs=http#retrieve-organization-follower-count
+// GET https://api.linkedin.com/v2/networkSizes/urn:li:organization:1234567?edgeType=CompanyFollowedByMember
+//
+
+typealias organization_follower_count := record(
+                                            firstDegreeSize: int
+                                            );
+
+retrieve_organization_follower_count(token: string, organization: string) : organization_follower_count := {
+
+    read_json[organization_follower_count](  "https://api.linkedin.com/v2/networkSizes/"+organization+"?edgeType=CompanyFollowedByMember",
+                                http_headers := [
+                                                ("Authorization", "Bearer "+token)
+                                                ]
+                                        )
+
+}
+
+//
+// Retrieve statistices on company page views 
+//
+// https://docs.microsoft.com/en-us/linkedin/marketing/integrations/community-management/organizations/page-statistics?tabs=http
+// GET https://api.linkedin.com/v2/organizationPageStatistics?q=organization&organization={organization URN}
+//
+
+organizationPageStatistics( token: string,
+                            organization: string,
+                            )

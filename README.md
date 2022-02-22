@@ -20,7 +20,7 @@ https://docs.raw-labs.com/latest/rql/packages.html
 | [cloudflare.com](./1/public/cloudflare.com)           | Cloudflare Workers & KV API                | Yes        | 
 | [opengraphr.com](./1/public/opengraphr.com)           | OpenGraph URL metadata extractor API           | Yes        | 
 | [opengraph.io](./1/public/opengraph.io)               | OpenGraph URL metadata extractor API           | Yes        | 
- 
+| [linkedin.com](./1/public/linkedin.com)               | LinkedIn V2 API           | Yes        |  
 
 Read our Blogs and Tutorials too:
 https://www.raw-labs.com/blog
