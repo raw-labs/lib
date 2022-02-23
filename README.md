@@ -21,6 +21,7 @@ https://docs.raw-labs.com/latest/rql/packages.html
 | [opengraphr.com](./1/public/opengraphr.com)           | OpenGraph URL metadata extractor API           | Yes        | 
 | [opengraph.io](./1/public/opengraph.io)               | OpenGraph URL metadata extractor API           | Yes        | 
 | [linkedin.com](./1/public/linkedin.com)               | LinkedIn V2 API           | Yes        |  
+| [stlouisfed.org](./1/public/stlouisfed.org)           | St Louis Federal Reserve (FRED) economic data | Yes |
 
 Read our Blogs and Tutorials too:
 https://www.raw-labs.com/blog
