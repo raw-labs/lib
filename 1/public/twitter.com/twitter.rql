@@ -91,7 +91,7 @@ typealias tweet := record(
         coordinates: record(
             type: string nullable,
             coordinates: collection(record()) nullable
-        ),
+        ) nullable,
         place_id: string nullable
     ) nullable,
     author_id: string nullable,
