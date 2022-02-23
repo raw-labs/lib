@@ -83,7 +83,7 @@
 typealias tweet := record(
     id: string,
     text: string,
-    attachements: record(
+    attachments: record(
         poll_ids: collection(string) nullable,
         media_keys: collection(string) nullable
     ) nullable,
