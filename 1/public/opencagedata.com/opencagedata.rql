@@ -238,4 +238,4 @@ geocode(key: string,
                                             ("roadinfo", cast ( roadinfo as string ) )
                                         ]
                         )
-}
+};

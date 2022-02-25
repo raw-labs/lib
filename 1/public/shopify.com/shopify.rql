@@ -32,5 +32,5 @@ access_scopes(  access_token: string,
                                         http_token_url := "https://"+shop+".myshopify.com/admin/oauth/access_token",
                                         http_renew_token_use_basic_auth := true
                         )
-}
+};
 

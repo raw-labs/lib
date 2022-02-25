@@ -16,13 +16,12 @@
 //
 // returns a collection of string dates between d1 and d2
 // return dates are "yyyy-MM-dd"
-//
+// date_range(date "2022-01-01", CURRENT_DATE())
 
 date_range(start_date: date, end_date: date) : collection(string) := {
   n := (unix_timestamp(end_date) - unix_timestamp(start_date))/86400;
   iteration := range(0, cast(n as int));
   select substr(cast( start_date + i as string ),1,10) from i in iteration
-}
+};
 
-// date_range(date "2022-01-01", CURRENT_DATE())
 

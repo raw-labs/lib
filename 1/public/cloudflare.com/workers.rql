@@ -42,7 +42,7 @@ putvalue(   x_auth_key: string,
                             ],
                     http_body_string := value
                         )
-}
+};
 
 //
 // https://api.cloudflare.com/#workers-kv-namespace-read-key-value-pair
@@ -60,7 +60,7 @@ getvalue(   x_auth_key: string,
                             ("X-Auth-Key", x_auth_key)
                             ]
             ).data
-}
+};
 
 //
 // https://api.cloudflare.com/#workers-kv-namespace-list-a-namespace-s-keys
@@ -103,7 +103,7 @@ list_namespace_keys(    x_auth_key: string,
                             ]
                     )
     select name from res.result
-}
+};
 
 //
 // https://api.cloudflare.com/#workers-kv-namespace-delete-key-value-pair
@@ -121,5 +121,5 @@ deletevalue(    x_auth_key: string,
                                     ("X-Auth-Key", x_auth_key)
                                 ]
                     )
-}
+};
 

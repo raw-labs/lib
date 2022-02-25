@@ -36,7 +36,7 @@ retrieve_organization_follower_count(client_id: string, client_secret: string, t
                                                 ]
                                         )
 
-}
+};
 
 //
 // Retrieve statistices on company page views 
@@ -44,7 +44,3 @@ retrieve_organization_follower_count(client_id: string, client_secret: string, t
 // https://docs.microsoft.com/en-us/linkedin/marketing/integrations/community-management/organizations/page-statistics?tabs=http
 // GET https://api.linkedin.com/v2/organizationPageStatistics?q=organization&organization={organization URN}
 //
-
-organizationPageStatistics( token: string,
-                            organization: string,
-                            )

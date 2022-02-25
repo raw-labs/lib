@@ -282,7 +282,7 @@ get_users( client_id: string,
                                 http_token_url := "https://api.twitter.com/oauth2/token",
                                 http_renew_token_use_basic_auth := true
                             )
-}
+};
 
 //
 // https://developer.twitter.com/en/docs/twitter-api/users/lookup/api-reference/get-users-by-username-username
@@ -308,7 +308,7 @@ get_users_by_username_username( client_id: string,
                                 http_token_url := "https://api.twitter.com/oauth2/token",
                                 http_renew_token_use_basic_auth := true
                         )
-}
+};
 
 //
 // https://developer.twitter.com/en/docs/twitter-api/users/lookup/api-reference/get-users-id
@@ -333,7 +333,7 @@ get_users_id( client_id: string,
                                 http_token_url := "https://api.twitter.com/oauth2/token",
                                 http_renew_token_use_basic_auth := true
                         )
-}
+};
 
 //
 // https://developer.twitter.com/en/docs/twitter-api/users/lookup/api-reference/get-users-by
@@ -359,7 +359,7 @@ get_users_by( client_id: string,
                                 http_token_url := "https://api.twitter.com/oauth2/token",
                                 http_renew_token_use_basic_auth := true
                         )
-}
+};
 
 //
 // https://developer.twitter.com/en/docs/twitter-api/users/follows/api-reference/get-users-id-following
@@ -388,7 +388,7 @@ get_users_id_following( client_id: string,
                                 http_token_url := "https://api.twitter.com/oauth2/token",
                                 http_renew_token_use_basic_auth := true
                         )
-}
+};
 
 //
 // https://developer.twitter.com/en/docs/twitter-api/users/follows/api-reference/get-users-id-followers
@@ -417,7 +417,7 @@ get_users_id_followers( client_id: string,
                                 http_token_url := "https://api.twitter.com/oauth2/token",
                                 http_renew_token_use_basic_auth := true
                         )
-}
+};
 
 //
 // https://developer.twitter.com/en/docs/twitter-api/tweets/lookup/api-reference/get-tweets
@@ -450,7 +450,7 @@ get_tweets( client_id: string,
                                 http_token_url := "https://api.twitter.com/oauth2/token",
                                 http_renew_token_use_basic_auth := true
                         )
-}
+};
 
 //
 // https://developer.twitter.com/en/docs/twitter-api/tweets/lookup/api-reference/get-tweets-id
@@ -482,7 +482,7 @@ get_tweets_id( client_id: string,
                     http_token_url := "https://api.twitter.com/oauth2/token",
                     http_renew_token_use_basic_auth := true
                         )
-}
+};
 
 //
 // https://developer.twitter.com/en/docs/twitter-api/tweets/timelines/api-reference/get-users-id-tweets
@@ -530,7 +530,7 @@ get_users_id_tweets(    client_id: string,
                     http_token_url := "https://api.twitter.com/oauth2/token",
                     http_renew_token_use_basic_auth := true
                         )
-}
+};
 
 //
 // https://developer.twitter.com/en/docs/twitter-api/tweets/timelines/api-reference/get-users-id-mentions
@@ -576,7 +576,7 @@ get_users_id_mentions(  client_id: string,
                     http_token_url := "https://api.twitter.com/oauth2/token",
                     http_renew_token_use_basic_auth := true
                         )
-}
+};
 
 //
 // https://developer.twitter.com/en/docs/twitter-api/tweets/search/api-reference/get-tweets-search-recent
@@ -621,7 +621,7 @@ get_tweets_search_recent(   client_id: string,
                     http_token_url := "https://api.twitter.com/oauth2/token",
                     http_renew_token_use_basic_auth := true
                         )
-}
+};
 
 //
 // https://developer.twitter.com/en/docs/twitter-api/tweets/counts/api-reference/get-tweets-counts-recent
@@ -663,7 +663,7 @@ get_tweets_counts_recent(   client_id: string,
                     http_token_url := "https://api.twitter.com/oauth2/token",
                     http_renew_token_use_basic_auth := true
                         )
-}
+};
 
 //
 // https://developer.twitter.com/en/docs/twitter-api/tweets/retweets/api-reference/get-tweets-id-retweeted_by
@@ -719,7 +719,7 @@ get_tweets_id_retweeted_by( client_id: string,
                     http_token_url := "https://api.twitter.com/oauth2/token",
                     http_renew_token_use_basic_auth := true
                         )
-}
+};
 
 //
 // https://developer.twitter.com/en/docs/twitter-api/tweets/likes/api-reference/get-tweets-id-liking_users
@@ -772,7 +772,7 @@ get_tweets_id_liking_users( client_id: string,
                     http_token_url := "https://api.twitter.com/oauth2/token",
                     http_renew_token_use_basic_auth := true
                         )
-}
+};
 
 //
 // https://developer.twitter.com/en/docs/twitter-api/tweets/likes/api-reference/get-users-id-liked_tweets
@@ -808,4 +808,5 @@ get_users_id_liked_tweets(  client_id: string,
                     http_token_url := "https://api.twitter.com/oauth2/token",
                     http_renew_token_use_basic_auth := true
                         )
-}
+};
+

@@ -212,7 +212,7 @@ latest(access_key: string, base: string null:=null, symbols: string null:=null )
                                             ("symbols", symbols)
                                         ]
                         )
-}
+};
 
 //
 // date is YYYY-MM-DD
@@ -227,7 +227,7 @@ historical(access_key: string, `date`:string, base: string null:=null, symbols: 
                                             ("symbols", symbols)
                                         ]
                         )
-}
+};
 
 //
 // This requires a subscription plan, not available with the free access_key
@@ -244,5 +244,5 @@ convert(access_key: string, `from`: string, `to`: string, `amount`: double, `dat
                                             ("date", `date`)
                                         ]
                         )
-}
+};
 
