@@ -217,9 +217,6 @@ typealias tweets_response := record(
     errors: collection( record(
                             parameters: record() nullable,
                             message: string nullable,
-                            title: string nullable,
-                            detail: string nullable,
-                            type: string nullable,
                             code: string nullable,
                             value: string nullable,
                             resource_type: string nullable,
