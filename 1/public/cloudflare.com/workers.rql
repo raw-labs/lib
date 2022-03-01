@@ -44,22 +44,21 @@ putvalue(   x_auth_key: string,
                         )
 };
 
-//
+// because of an inliner problem, we use read_lines(not inlined) rather than read_json 
 // https://api.cloudflare.com/#workers-kv-namespace-read-key-value-pair
-// returns the string containing the value if existing
+// returns a list of strings containing the value if existing
 
-getvalue(   x_auth_key: string, 
+getvalues(  x_auth_key: string, 
             x_auth_email: string,
             account_id: string,
             namespace: string,
             key: string) := {
-    http(  "https://api.cloudflare.com/client/v4/accounts/"+account_id+"/storage/kv/namespaces/"+namespace+"/values/"+key,
-                    method:= "get",
-                    headers:=[
+        read_lines(  "https://api.cloudflare.com/client/v4/accounts/"+account_id+"/storage/kv/namespaces/"+namespace+"/values/"+key,
+                    http_headers:=[
                             ("X-Auth-Email",x_auth_email),
                             ("X-Auth-Key", x_auth_key)
-                            ]
-            ).data
+                        ]
+        )
 };
 
 //
