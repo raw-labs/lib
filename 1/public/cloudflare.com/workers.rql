@@ -48,7 +48,7 @@ putvalue(   x_auth_key: string,
 // https://api.cloudflare.com/#workers-kv-namespace-read-key-value-pair
 // returns a list of strings containing the value if existing
 
-getvalues(  x_auth_key: string, 
+getvalue(  x_auth_key: string, 
             x_auth_email: string,
             account_id: string,
             namespace: string,
