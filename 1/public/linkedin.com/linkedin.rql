@@ -32,7 +32,7 @@ retrieve_organization_follower_count(auth_cred_name: string, organization: strin
 };
 
 //
-// Retrieve statistices on company page views 
+// Retrieve statistics on company page views 
 //
 // https://docs.microsoft.com/en-us/linkedin/marketing/integrations/community-management/organizations/page-statistics?tabs=http
 // GET https://api.linkedin.com/v2/organizationPageStatistics?q=organization&organization={organization URN}
