@@ -37,3 +37,97 @@ retrieve_organization_follower_count(auth_cred_name: string, organization: strin
 // https://docs.microsoft.com/en-us/linkedin/marketing/integrations/community-management/organizations/page-statistics?tabs=http
 // GET https://api.linkedin.com/v2/organizationPageStatistics?q=organization&organization={organization URN}
 //
+
+typealias view := record(
+                    allDesktopPageViews: record(pageViews: int),
+                    allMobilePageViews: record(pageViews: int),
+                    allPageViews: record(pageViews: int),
+                    careersPageViews: record(pageViews: int),
+                    desktopCareersPageViews: record(pageViews: int),
+                    desktopJobsPageViews: record(pageViews: int),
+                    desktopLifeAtPageViews: record(pageViews: int),
+                    desktopOverviewPageViews: record(pageViews: int),
+                    jobsPageViews: record(pageViews: int),
+                    lifeAtPageViews: record(pageViews: int),
+                    mobileCareersPageViews: record(pageViews: int),
+                    mobileJobsPageViews: record(pageViews: int),
+                    mobileLifeAtPageViews: record(pageViews: int),
+                    mobileOverviewPageViews: record(pageViews: int),
+                    overviewPageViews: record(pageViews: int)
+);
+
+typealias organization_page_statistics := record(
+                                                elements: collection( record(
+                                                  organization: string,
+                                                  totalPageStatistics: record(
+                                                    clicks: record(
+                                                      careersPageClicks: record(
+                                                          careersPageBannerPromoClicks: int,
+                                                          careersPageEmployeesClicks: int,
+                                                          careersPageJobsClicks: int,
+                                                          careersPagePromoLinksClicks: int
+                                                      ),
+                                                      mobileCareersPageClicks: record(
+                                                        careersPageEmployeesClicks: int,
+                                                        careersPageJobsClicks: int,
+                                                        careersPagePromoLinksClicks: int
+                                                      )
+                                                    ),
+                                                    views: view
+                                                  ),
+                                                  pageStatisticsByCountry: collection( record(
+                                                    country: string,
+                                                    pageStatistics: record( views: view )
+                                                  )) null,
+                                                  pageStatisticsByFunction: collection( record(
+                                                    function: string,
+                                                    pageStatistics: record( views: view )
+                                                  )) null,
+                                                  pageStatisticsByIndustry: collection( record(
+                                                    industry: string,
+                                                    pageStatistics: record( views: view )
+                                                  )) null,
+                                                  pageStatisticsByRegion: collection( record(
+                                                    region: string,
+                                                    pageStatistics: record( views: view )
+                                                  )) null,
+                                                 pageStatisticsBySeniority: collection( record(
+                                                    seniority: string,
+                                                    pageStatistics: record( views: view )
+                                                  )) null,
+                                                 pageStatisticsByStaffCountRange: collection( record(
+                                                    staffCountRange: string,
+                                                    pageStatistics: record( views: view )
+                                                  )) null
+                                                )),
+                                                paging: record(
+                                                  count: int,
+                                                  links: collection(string),
+                                                  start: int
+                                                )
+);
+
+// timeIntervals.timeRange.start and timeIntervals.timeRange.end
+// are unix_timestamp(timestamp "yyyy-MM-dd HH:MN") * 1000
+//
+// page_statistics("LinkedInToken","urn:li:organization:27039078",
+//                 `timeIntervals.timeRange.start`:=unix_timestamp(timestamp "2022-03-01 00:00")*1000,
+//                 `timeIntervals.timeRange.end`:=unix_timestamp(timestamp "2022-03-04 00:00")*1000,
+//                 `timeIntervals.timeGranularityType`:="DAY"
+//                 )
+
+page_statistics(  auth_cred_name: string,
+                  organization: string, 
+                  `timeIntervals.timeRange.start`: long null := null,
+                  `timeIntervals.timeRange.end`: long null := null,
+                  `timeIntervals.timeGranularityType`: string null := null) : organization_page_statistics := {
+    read_json[organization_page_statistics](  "https://api.linkedin.com/v2/organizationPageStatistics",
+                                              http_args:=[
+                                                ("q", "organization"),
+                                                ("organization", organization),
+                                                ("timeIntervals.timeRange.start", cast( `timeIntervals.timeRange.start` as string )),
+                                                ("timeIntervals.timeRange.end", cast( `timeIntervals.timeRange.end` as string )),
+                                                ("timeIntervals.timeGranularityType", `timeIntervals.timeGranularityType`)
+                                              ],
+                                              http_auth_cred_name := auth_cred_name)
+};
