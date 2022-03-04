@@ -26,16 +26,9 @@ typealias organization_follower_count := record(
                                             firstDegreeSize: int
                                             );
 
-retrieve_organization_follower_count(client_id: string, client_secret: string, token_url: string, organization: string) : organization_follower_count := {
-
-    read_json[organization_follower_count](  "https://api.linkedin.com/v2/networkSizes/"+organization+"?edgeType=CompanyFollowedByMember",
-                                http_headers := [
-                                                ("http_client_id",client_id),
-                                                ("http_client_secret",client_secret),
-                                                ("http_token_url",token_url)
-                                                ]
-                                        )
-
+retrieve_organization_follower_count(auth_cred_name: string, organization: string) : organization_follower_count := {
+    read_json[organization_follower_count]( "https://api.linkedin.com/v2/networkSizes/"+organization+"?edgeType=CompanyFollowedByMember",
+                                            http_auth_cred_name := auth_cred_name)
 };
 
 //
