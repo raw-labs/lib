@@ -17,6 +17,7 @@
 
 //
 // Retrieves the number of followers for an organization
+// permissions allows to look a this number for any organization
 //
 // https://docs.microsoft.com/en-us/linkedin/marketing/integrations/community-management/organizations/organization-lookup-api?tabs=http#retrieve-organization-follower-count
 // GET https://api.linkedin.com/v2/networkSizes/urn:li:organization:1234567?edgeType=CompanyFollowedByMember
@@ -32,7 +33,10 @@ retrieve_organization_follower_count(auth_cred_name: string, organization: strin
 };
 
 //
-// Retrieve statistics on company page views 
+// Retrieve statistics on company page views
+// To get access to this endpoint, you need to have permission
+// which means creating an access token
+// https://docs.microsoft.com/en-us/linkedin/shared/authentication/authorization-code-flow?tabs=HTTPS
 //
 // https://docs.microsoft.com/en-us/linkedin/marketing/integrations/community-management/organizations/page-statistics?tabs=http
 // GET https://api.linkedin.com/v2/organizationPageStatistics?q=organization&organization={organization URN}
