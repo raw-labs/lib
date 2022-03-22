@@ -43,7 +43,7 @@ typealias observations_response :=
 // example call: observations("GNPCA", secret("stlouisfed.org"))
 
 observations ( series_id: string, api_key: string, file_type: string ) := {
-  READ_JSON[observations_response]("https://api.stlouisfed.org/fred/series/observations", 
+  READ[observations_response]("https://api.stlouisfed.org/fred/series/observations", 
       http_args :=[ 
           ( "series_id", series_id),
           ( "api_key", api_key), 
