@@ -36,7 +36,7 @@ typealias observations_response :=
         realtime_start: string,
         realtime_end: string,
         date: string,
-        value: double)
+        value: string)
         )
     );
 
