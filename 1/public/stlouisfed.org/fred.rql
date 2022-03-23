@@ -20,10 +20,10 @@
 
 typealias observations_response := 
   record(
-    realtime_start: date,
-    realtime_end: date,
-    observation_start: date,
-    observation_end: date,
+    realtime_start: string,
+    realtime_end: string,
+    observation_start: string,
+    observation_end: string,
     units: string,
     output_type: int,
     file_type: string,
@@ -33,9 +33,9 @@ typealias observations_response :=
     offset: int,
     `limit`: int,
     observations: collection(record(
-        realtime_start: date,
-        realtime_end: date,
-        date: date,
+        realtime_start: string,
+        realtime_end: string,
+        date: string,
         value: double)
         )
     );
