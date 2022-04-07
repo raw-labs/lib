@@ -1,0 +1,155 @@
+//
+// Licensed under the Apache License, Version 2.0 (the "License");
+// you may not use this file except in compliance with the License.
+// You may obtain a copy of the License at
+//
+// http://www.apache.org/licenses/LICENSE-2.0
+//
+//
+// Unless required by applicable law or agreed to in writing, software
+// distributed under the License is distributed on an "AS IS" BASIS,
+// WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied
+// See the License for the specific language governing permissions and
+// limitations under the License.
+//
+
+//
+// DataForSEO v3 APIs from
+// https://docs.dataforseo.com/v3/
+
+typealias hist_search_vol_result :=
+ record(
+  version: string,
+  status_code: int,
+  status_message: string,
+  time: string,
+  cost: double,
+  tasks_count: int,
+  tasks_error: int,
+  tasks: collection(record(
+      id: string,
+      status_code: int,
+      status_message: string,
+      time: string,
+      cost: double,
+      result_count: int,
+      path: collection(string),
+      data: record(
+        api: string,
+        function: string,
+        se_type: string,
+        keywords: collection(string),
+        language_name: string,
+        location_code: int,
+        include_serp_info: bool),
+      result: collection(record(
+          se_type: string,
+          location_code: int,
+          language_code: string,
+          items_count: int,
+          items: collection(record(
+              se_type: string,
+              keyword: string,
+              location_code: int,
+              language_code: string,
+              search_partners: bool,
+              keyword_info: record(
+                se_type: string,
+                last_updated_time: string,
+                competition: double,
+                cpc: double,
+                search_volume: int,
+                categories: collection(int),
+                monthly_searches: collection(record(
+                    year: int,
+                    month: int,
+                    search_volume: int))),
+              keyword_properties: record(
+                se_type: string,
+                core_keyword: string nullable,
+                keyword_difficulty: int),
+              impressions_info: record(
+                se_type: string,
+                last_updated_time: string,
+                bid: int,
+                match_type: string,
+                ad_position_min: double,
+                ad_position_max: int,
+                ad_position_average: double,
+                cpc_min: double,
+                cpc_max: double,
+                cpc_average: double,
+                daily_impressions_min: double,
+                daily_impressions_max: double,
+                daily_impressions_average: double,
+                daily_clicks_min: double,
+                daily_clicks_max: double,
+                daily_clicks_average: double,
+                daily_cost_min: double,
+                daily_cost_max: double,
+                daily_cost_average: double),
+              serp_info: record(
+                se_type: string,
+                check_url: string,
+                serp_item_types: collection(string),
+                se_results_count: double,
+                last_updated_time: string,
+                previous_updated_time: string
+              ) nullable
+            )
+          )
+        )
+      )
+    )
+  )
+ )
+
+// DataForSEO: Historical Search Volume
+// see:
+// https://docs.dataforseo.com/v3/dataforseo_labs/google/historical_search_volume/live/
+
+// parameters mimic the API itself: 
+// ================================
+// key:=secret("dataforseo.com"); # this key is made up from user:password | base64
+// keywords:= "ukraine,putin"; # a list of comma-delimited keyworkds
+// language_name:= "English" # default if not supplied
+// language_code:= "en" # default if not supplied (code or name required)
+// location_name:="United Kingdom" OR
+// location_code:=2840 # need either location code or name
+// include_serp_info:=true # boolean, default is false
+// tag:="sdfjhgsdflhdfhjsalfhjsdhflasdh" # some unique tag
+
+historical_search_volume(
+    key: string, 
+    keywords: string, 
+    language_name: string,
+    language_code: string,
+    location_name: string,
+    location_code: int,
+    include_serp_info: bool:=false,
+    tag: string 
+  ):= {
+
+    // form the body to post
+    body:=print_json(
+      (
+        keywords: split(keywords,","), 
+        language_name: language_name, 
+        language_code: language_code, 
+        location_name: location_name, 
+        location_code: location_code, 
+        include_serp_info: include_serp_info,
+        tag: tag
+      )
+    );
+    
+    READ_JSON[hist_search_vol_result]("https://api.dataforseo.com/v3/dataforseo_labs/google/historical_search_volume/live", 
+    http_method := "post", 
+    http_headers := 
+    [("Authorization", "Basic " + key ),
+    ("x-raw-output-format", "json"),
+    ("Content-Type", "application/json")
+    ], 
+    http_body_string :="[" + body + "]"
+    )
+}
