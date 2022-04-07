@@ -98,8 +98,8 @@ typealias hist_search_vol_result :=
               ) nullable
             )
           )
-        )
-      )
+        ) nullable
+      ) nullable
     )
   )
  );
