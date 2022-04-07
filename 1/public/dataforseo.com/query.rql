@@ -39,7 +39,7 @@ typealias hist_search_vol_result :=
         function: string,
         se_type: string,
         keywords: collection(string),
-        language_name: string,
+        language_name: string nullable,
         location_code: int,
         include_serp_info: bool),
       result: collection(record(
