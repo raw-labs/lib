@@ -126,8 +126,8 @@ historical_search_volume(
     language_code: string,
     location_name: string,
     location_code: int,
-    include_serp_info: bool:=false,
-    tag: string 
+    tag: string,
+    include_serp_info: bool:=false
   ):= {
 
     // form the body to post
