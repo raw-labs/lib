@@ -5,7 +5,7 @@ Reusable data from places around the web.
 We maintain this library in order for our customers to quickly connect to useful data sets
 
 To use these, simply follow the IMPORT statement in your RQL code, see:<p>
-https://docs.raw-labs.com/latest/rql/packages.html
+https://docs.raw-labs.com/
 
 | Library                                               | Details                                    | Needs Key? |
 | -------                                               | ---                                        | ---        |
@@ -22,7 +22,8 @@ https://docs.raw-labs.com/latest/rql/packages.html
 | [opengraph.io](./1/public/opengraph.io)               | OpenGraph URL metadata extractor API           | Yes        | 
 | [linkedin.com](./1/public/linkedin.com)               | LinkedIn V2 API           | Yes        |  
 | [stlouisfed.org](./1/public/stlouisfed.org)           | St Louis Federal Reserve (FRED) economic data | Yes |
-
+| [dataforseo.com](./1/public/dataforseo.com)           | Data For SEO v3 API | Yes |
+  
 Read our Blogs and Tutorials too:
 https://www.raw-labs.com/blog
 
