@@ -5,7 +5,7 @@ Reusable data from places around the web.
 We maintain this library in order for our customers to quickly connect to useful data sets
 
 To use these, simply follow the IMPORT statement in your RQL code, see:<p>
-https://docs.raw-labs.com/latest/rql/packages.html
+https://docs.raw-labs.com/
 
 | Library                                               | Details                                    | Needs Key? |
 | -------                                               | ---                                        | ---        |
