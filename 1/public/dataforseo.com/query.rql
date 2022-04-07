@@ -56,7 +56,7 @@ typealias hist_search_vol_result :=
               keyword_info: record(
                 se_type: string,
                 last_updated_time: string,
-                competition: double,
+                competition: double nullable,
                 cpc: double,
                 search_volume: int,
                 categories: collection(int),
