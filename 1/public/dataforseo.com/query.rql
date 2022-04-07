@@ -122,11 +122,11 @@ typealias hist_search_vol_result :=
 historical_search_volume(
     key: string, 
     keywords: string, 
-    language_name: string,
-    language_code: string,
-    location_name: string,
-    location_code: int,
-    tag: string,
+    language_name: string null := null,
+    language_code: string null := null,
+    location_name: string null := null,
+    location_code: int null := null,
+    tag: string null := null,
     include_serp_info: bool:=false
   ):= {
 
