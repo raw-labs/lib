@@ -104,20 +104,19 @@ typealias hist_search_vol_result :=
   )
  );
 
-// DataForSEO: Historical Search Volume
-// see:
+// Historical Search Volume
+// For API docs, see:
 // https://docs.dataforseo.com/v3/dataforseo_labs/google/historical_search_volume/live/
 
 // parameters mimic the API itself: 
-// ================================
 // key:=secret("dataforseo.com"); # this key is made up from user:password | base64
 // keywords:= "ukraine,putin"; # a list of comma-delimited keyworkds
-// language_name:= "English" # default if not supplied
-// language_code:= "en" # default if not supplied (code or name required)
-// location_name:="United Kingdom" OR
-// location_code:=2840 # need either location code or name
+// language_name:= "English" 
+// language_code:= "en" # need code or name above, one of the two
+// location_name:="United Kingdom" 
+// location_code:=2840 # need code or name above, one of the two
 // include_serp_info:=true # boolean, default is false
-// tag:="sdfjhgsdflhdfhjsalfhjsdhflasdh" # some unique tag
+// tag:="sdfjhgsdflhdfhjsalfhjsdhflasdh" # some unique tag you pass in
 
 historical_search_volume(
     key: string, 
@@ -143,13 +142,15 @@ historical_search_volume(
       )
     );
     
-    READ_JSON[hist_search_vol_result]("https://api.dataforseo.com/v3/dataforseo_labs/google/historical_search_volume/live", 
-    http_method := "post", 
-    http_headers := 
-    [("Authorization", "Basic " + key ),
-    ("x-raw-output-format", "json"),
-    ("Content-Type", "application/json")
-    ], 
-    http_body_string :="[" + body + "]"
+    READ_JSON[hist_search_vol_result](
+      "https://api.dataforseo.com/v3/dataforseo_labs/google/historical_search_volume/live", 
+      http_method := "post", 
+      http_headers := 
+        [
+          ("Authorization", "Basic " + key ),
+          ("x-raw-output-format", "json"),
+          ("Content-Type", "application/json")
+        ], 
+      http_body_string :="[" + body + "]"
     )
 };
