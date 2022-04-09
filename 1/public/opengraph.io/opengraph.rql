@@ -55,7 +55,7 @@ typealias site_response :=
       full_render: bool,
       use_proxy: bool,
       use_premium: bool,
-      responseLength: string,
+      responseLength: string nullable,
       responseContentType: string
     ),
     accept_lang: string,
