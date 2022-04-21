@@ -163,8 +163,8 @@ collection(record(
 // 
 posts(
    site: string,
-   user: string nullable := null, 
-   password: string nullable := null,
+   user: string, 
+   password: string,
    post_type: string nullable := null,
    context: string nullable := null,
    page: string nullable := null,
