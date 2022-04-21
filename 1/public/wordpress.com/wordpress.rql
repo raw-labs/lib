@@ -1,0 +1,220 @@
+//
+// Licensed under the Apache License, Version 2.0 (the "License");
+// you may not use this file except in compliance with the License.
+// You may obtain a copy of the License at
+//
+// http://www.apache.org/licenses/LICENSE-2.0
+//
+//
+// Unless required by applicable law or agreed to in writing, software
+// distributed under the License is distributed on an "AS IS" BASIS,
+// WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied
+// See the License for the specific language governing permissions and
+// limitations under the License.
+//
+
+//
+// Wordpress APIs
+// https://developer.wordpress.org/rest-api/reference/
+//
+
+
+typealias wp_posts := 
+collection(record(
+    id: int,
+    date: string,
+    date_gmt: string,
+    guid: record(rendered: string),
+    modified: string,
+    modified_gmt: string,
+    slug: string,
+    status: string,
+    type: string,
+    link: string,
+    title: record(rendered: string),
+    content: record(rendered: string, protected: bool),
+    excerpt: record(rendered: string, protected: bool),
+    author: int,
+    featured_media: int,
+    comment_status: string,
+    ping_status: string,
+    sticky: bool,
+    template: string,
+    format: string,
+    meta: collection(nothing),
+    categories: collection(int),
+    tags: collection(nothing),
+    acf: collection(nothing),
+    yoast_head: string,
+    yoast_head_json: record(
+      title: string,
+      description: string nullable,
+      robots: record(
+        index: string,
+        follow: string,
+        `max-snippet`: string,
+        `max-image-preview`: string,
+        `max-video-preview`: string),
+      canonical: string,
+      og_locale: string,
+      og_type: string,
+      og_title: string,
+      og_description: string,
+      og_url: string,
+      og_site_name: string,
+      article_published_time: string,
+      article_modified_time: string,
+      og_image: collection(record(
+          width: int,
+          height: int,
+          url: string,
+          type: string)),
+      twitter_card: string,
+      twitter_misc: record(
+        `Written by`: string,
+        `Est. reading time`: string),
+      schema: record(
+        `@context`: string,
+        `@graph`: collection(record(
+            `@type`: string,
+            `@id`: string,
+            name: string nullable,
+            url: string nullable,
+            sameAs: collection(string) nullable,
+            logo: record(
+              `@type`: string,
+              `@id`: string,
+              inLanguage: string,
+              url: string,
+              contentUrl: string,
+              width: int,
+              height: int,
+              caption: string) nullable,
+            image: record(
+              `@id`: string,
+              `@type`: string nullable,
+              inLanguage: string nullable,
+              url: string nullable,
+              contentUrl: string nullable,
+              caption: string nullable) nullable,
+            description: string nullable,
+            publisher: record(`@id`: string) nullable,
+            potentialAction: collection(record(
+                `@type`: string,
+                target: record(
+                  `@type`: string,
+                  urlTemplate: string) or collection(string),
+                `query-input`: string nullable,
+                name: string nullable)) nullable,
+            inLanguage: string nullable,
+            contentUrl: string nullable,
+            width: int nullable,
+            height: int nullable,
+            isPartOf: record(`@id`: string) nullable,
+            primaryImageOfPage: record(`@id`: string) nullable,
+            datePublished: string nullable,
+            dateModified: string nullable,
+            breadcrumb: record(`@id`: string) nullable,
+            itemListElement: collection(record(
+                `@type`: string,
+                position: int,
+                name: string,
+                item: string nullable)) nullable,
+            author: record(`@id`: string) nullable,
+            headline: string nullable,
+            mainEntityOfPage: record(`@id`: string) nullable,
+            wordCount: int nullable,
+            commentCount: int nullable,
+            thumbnailUrl: string nullable,
+            articleSection: collection(string) nullable,
+            caption: string nullable)))),
+    _links: record(
+      self: collection(record(href: string)),
+      collection: collection(record(href: string)),
+      about: collection(record(href: string)),
+      author: collection(record(
+          embeddable: bool,
+          href: string)),
+      replies: collection(record(
+          embeddable: bool,
+          href: string)),
+      `version-history`: collection(record(
+          count: int,
+          href: string)),
+      `predecessor-version`: collection(record(
+          id: int,
+          href: string)),
+      `wp:featuredmedia`: collection(record(
+          embeddable: bool,
+          href: string)),
+      `wp:attachment`: collection(record(href: string)),
+      `wp:term`: collection(record(
+          taxonomy: string,
+          embeddable: bool,
+          href: string)),
+      curies: collection(record(
+          name: string,
+          href: string,
+          templated: bool)))))
+
+//
+// Example usage:
+// posts (site:="https://your-wordpress-site.com",user:="username",password:="pass")
+// 
+posts(
+   site: string,
+   user: string nullable := null, 
+   password: string nullable := null,
+   post_type: string nullable := null,
+   context: string nullable := null,
+   page: string nullable := null,
+   per_page: string nullable := null,
+   search: string nullable := null,
+   after: string nullable := null,
+   author: string nullable := null,
+   author_exclude: string nullable := null,
+   before: string nullable := null,
+   exclude: string nullable := null,
+   include: string nullable := null,
+   offset: string nullable := null,
+   `order`: string nullable := null,
+   orderby: string nullable := null,
+   slug: string nullable := null,
+   status: string nullable := null,
+   tax_relation: string nullable := null,
+   categories: string nullable := null,
+   categories_exclude: string nullable := null,
+   tags: string nullable := null,
+   tags_exclude: string nullable := null,
+   sticky: string nullable := null
+) := {
+
+  READ_JSON[wp_posts](site + "/wp-json/wp/v2/posts",
+      http_username:="flywheel",
+      http_password:="spooky-sock",
+      http_args := [
+        ("post_type", post_type),
+        ("context", context),
+        ("page", page),
+        ("per_page", per_page),
+        ("search", search),
+        ("after", after),
+        ("author", author),
+        ("author_exclude", author_exclude),
+        ("before", before),
+        ("exclude", exclude),
+        ("include", include),
+        ("offset", offset),
+        ("order", `order`),
+        ("orderby", orderby),
+        ("slug", slug),
+        ("status", status),
+        ("tax_relation", tax_relation),
+        ("categories", categories),
+        ("categories_exclude", categories_exclude),
+        ("tags", tags),
+        ("tags_exclude", tags_exclude),
+        ("sticky", sticky)
+      ])
+
+};
