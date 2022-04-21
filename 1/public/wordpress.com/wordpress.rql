@@ -190,8 +190,8 @@ posts(
 ) := {
 
   READ_JSON[wp_posts](site + "/wp-json/wp/v2/posts",
-      http_username:="flywheel",
-      http_password:="spooky-sock",
+      http_username:=user,
+      http_password:=password,
       http_args := [
         ("post_type", post_type),
         ("context", context),
