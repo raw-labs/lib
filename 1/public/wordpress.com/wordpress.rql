@@ -52,27 +52,27 @@ collection(record(
       robots: record(
         index: string,
         follow: string,
-        `max-snippet`: string,
-        `max-image-preview`: string,
-        `max-video-preview`: string),
-      canonical: string,
+        `max-snippet`: string nullable,
+        `max-image-preview`: string nullable,
+        `max-video-preview`: string nullable),
+      canonical: string nullable,
       og_locale: string,
       og_type: string,
       og_title: string,
       og_description: string,
       og_url: string,
       og_site_name: string,
-      article_published_time: string,
-      article_modified_time: string,
+      article_published_time: string nullable,
+      article_modified_time: string nullable,
       og_image: collection(record(
           width: int,
           height: int,
           url: string,
-          type: string)),
+          type: string)) nullable,
       twitter_card: string,
       twitter_misc: record(
-        `Written by`: string,
-        `Est. reading time`: string),
+        `Written by`: string nullable,
+        `Est. reading time`: string nullable) nullable,
       schema: record(
         `@context`: string,
         `@graph`: collection(record(
@@ -159,13 +159,22 @@ collection(record(
 
 //
 // Example usage:
-// posts (site:="https://your-wordpress-site.com",user:="username",password:="pass")
-// 
+// posts ( wp_site:="https://your-wordpress-site.com", wp_post_type:="articles", wp_user:="user", wp_password:="pwd" )
+//
+// NOTE: WP dynamically creates endpoints
+// wp_post_type :  
+//   posts ( or null, the default) = news page items
+//   articles = blog posts
+//   career = career posts
+//   team-member = team page members
+//   use-case = use case pages
+//   resource = resource page items (videos, downloads, presentations ... )
+//
 posts(
-   site: string,
-   user: string, 
-   password: string,
-   post_type: string nullable := null,
+   wp_site: string,
+   wp_user: string,
+   wp_password: string,
+   wp_post_type: string nullable := "posts", 
    context: string nullable := null,
    page: string nullable := null,
    per_page: string nullable := null,
@@ -189,11 +198,10 @@ posts(
    sticky: string nullable := null
 ) := {
 
-  READ_JSON[wp_posts](site + "/wp-json/wp/v2/posts",
-      http_username:=user,
-      http_password:=password,
+  READ_JSON[wp_posts](wp_site + "/wp-json/wp/v2/" + wp_post_type,
+      http_username := wp_user,
+      http_password := wp_password,
       http_args := [
-        ("post_type", post_type),
         ("context", context),
         ("page", page),
         ("per_page", per_page),
