@@ -23,6 +23,7 @@ https://docs.raw-labs.com/
 | [linkedin.com](./1/public/linkedin.com)               | LinkedIn V2 API           | Yes        |  
 | [stlouisfed.org](./1/public/stlouisfed.org)           | St Louis Federal Reserve (FRED) economic data | Yes |
 | [dataforseo.com](./1/public/dataforseo.com)           | Data For SEO v3 API | Yes |
+| [wordpress.com](./1/public/wordpress.com)             | Wordpress v2 REST API  | No : user/pw |
   
 Read our Blogs and Tutorials too:
 https://www.raw-labs.com/blog
