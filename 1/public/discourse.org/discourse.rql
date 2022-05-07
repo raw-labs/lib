@@ -1,0 +1,273 @@
+//
+// Licensed under the Apache License, Version 2.0 (the "License");
+// you may not use this file except in compliance with the License.
+// You may obtain a copy of the License at
+//
+// http://www.apache.org/licenses/LICENSE-2.0
+//
+//
+// Unless required by applicable law or agreed to in writing, software
+// distributed under the License is distributed on an "AS IS" BASIS,
+// WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied
+// See the License for the specific language governing permissions and
+// limitations under the License.
+//
+
+
+//
+// getting discourse site metrics
+// https://docs.discourse.org/#tag/Site/operation/getSite
+
+
+typealias discoursesite := record(
+  default_archetype: string null,
+  notification_types: record(
+    mentioned: int null,
+    replied: int null,
+    quoted: int null,
+    edited: int null,
+    liked: int null,
+    private_message: int null,
+    invited_to_private_message: int null,
+    invitee_accepted: int null,
+    posted: int null,
+    moved_post: int null,
+    linked: int null,
+    granted_badge: int null,
+    invited_to_topic: int null,
+    custom: int null,
+    group_mentioned: int null,
+    group_message_summary: int null,
+    watching_first_post: int null,
+    topic_reminder: int null,
+    liked_consolidated: int null,
+    post_approved: int null,
+    code_review_commit_approved: int null,
+    membership_request_accepted: int null,
+    membership_request_consolidated: int null,
+    bookmark_reminder: int null,
+    reaction: int null,
+    votes_released: int null,
+    event_reminder: int null,
+    event_invitation: int null,
+    chat_mention: int null,
+    chat_message: int null,
+    chat_invitation: int null,
+    chat_group_mention: int null
+  ),
+  post_types: record(
+    regular: int null,
+    moderator_action: int null,
+    small_action: int null,
+    whisper: int null
+  ),
+  trust_levels: record(
+    newuser: int null,
+    basic: int null,
+    member: int null,
+    regular: int null,
+    leader: int null
+  ),
+  groups: collection(
+    record(
+      id: int null,
+      name: string null,
+      flair_url: string null,
+      flair_bg_color: string null,
+      flair_color: string null
+    )
+  ),
+  filters: collection(record()null) null,
+  periods: collection(record() null) null,
+  top_menu_items: collection(record() null) null,
+  anonymous_top_menu_items:collection(record()null) null,
+  uncategorized_category_id: int null,
+  user_field_max_length: int null,
+  post_action_types: collection(
+    record(
+      id: int null,
+      name_key: string null,
+      name: string null,
+      description: string null,
+      short_description: string null,
+      is_flag: bool,
+      is_custom_flag: bool
+    )
+  ),
+  topic_flag_types: collection(
+    record(
+      id: int null,
+      name_key: string null,
+      name: string null,
+      description: string null,
+      short_description: string null,
+      is_flag: bool null,
+      is_custom_flag: bool null
+    )
+  ),
+  can_create_tag: bool null,
+  can_tag_topics: bool null,
+  can_tag_pms: bool null,
+  tags_filter_regexp: string null,
+  top_tags: collection(record()null) null,
+  wizard_required: bool null,
+  can_associate_groups: bool null,
+  topic_featured_link_allowed_category_ids: collection(record()null) null,
+  user_themes: collection(
+    record(
+      theme_id: int null,
+      name: string null,
+      default: bool null,
+      color_scheme_id: int null
+    )
+  ),
+  user_color_schemes: collection(
+    record(
+      id: int null,
+      name: string null,
+      is_dark: bool null
+    )
+  ),
+  default_dark_color_scheme: record() null,
+  censored_regexp: string null,
+  custom_emoji_translation: record() null,
+  watched_words_replace: string null,
+  watched_words_link: string null,
+  markdown_additional_options: record() null,
+  categories: collection(
+    record(
+      id: int null,
+      name: string null,
+      color: string null,
+      text_color: string null,
+      slug: string null,
+      topic_count: int null,
+      post_count: int null,
+      position: int null,
+      description: string null,
+      description_text: string null,
+      description_excerpt: string null,
+      topic_url: string null,
+      read_restricted: bool null,
+      permission: int null,
+      notification_level: int null,
+      topic_template: string null,
+      has_children: bool null,
+      sort_order: string null,
+      sort_ascending: string null,
+      show_subcategory_list: bool null,
+      num_featured_topics: int null,
+      default_view: string null,
+      subcategory_list_style: string null,
+      default_top_period: string null,
+      default_list_filter: string null,
+      minimum_required_tags: int null,
+      navigate_to_first_post_after_read: bool null,
+      allowed_tags:collection(null) null,
+      allowed_tag_groups: collection(null) null,
+      allow_global_tags: bool null,
+      min_tags_from_required_group: int null,
+      required_tag_group_name: string null,
+      read_only_banner: string null,
+      uploaded_logo: string null,
+      uploaded_background: string null,
+      can_edit: bool null
+    )
+  ),
+  archetypes: collection(
+    record(
+      id: string null,
+      name: string null,
+      options: collection(null) null
+    )
+  ),
+  user_fields: collection(null) null,
+  auth_providers: collection(null) null
+);
+
+discourse_site(apiKey:string, apiUsername:string) := {
+  read_json[discoursesite](  "https://discuss.raw-labs.com/site",
+                              http_headers:=[
+                                          ("Api-Key", apiKey),
+                                          ("Api-Username", apiUsername),
+                                          ("Accept", "application/json")
+                                      ]
+                          )
+};
+
+
+//
+// getting discourse metrics
+// https://docs.discourse.org/#tag/Topics/operation/listLatestTopics
+//
+
+typealias discoursetopic := record(
+  users: collection( record(
+      id: int,
+      username: string,
+      name: string null,
+      avatar_template: string
+   )),
+  primary_groups: collection(null) null,
+  topic_list: record(
+    can_create_topic: bool null,
+    draft: string null,
+    draft_key: string null,
+    draft_sequence: int null,
+    per_page: int null,
+    topics: collection(
+      record(
+        id: int null,
+        title: string null,
+        fancy_title: string null,
+        slug: string null,
+        posts_count: int null,
+        reply_count: int null,
+        highest_post_number: int null,
+        image_url: string null, 
+        created_at: string null,
+        last_posted_at: string null,
+        bumped: bool null,
+        bumped_at: string null,
+        archetype: string null,
+        unseen: bool null,
+        last_read_post_number: int null,
+        unread_posts: int null,
+        pinned: bool null,
+        unpinned: string null,
+        visible: bool null,
+        closed: bool null,
+        archived: bool null,
+        notification_level: int null,
+        bookmarked: bool null, 
+        liked: bool null,
+        views: int null,
+        like_count: int null,
+        has_summary: bool null,
+        last_poster_username: string null,
+        category_id: int null,
+        op_like_count: int null,
+        pinned_globally: bool null,
+        featured_link: string null,
+        posters: collection(
+          record(
+            extras: string null,
+            description: string null,
+            user_id: int null,
+            primary_group_id: string null
+          )
+        )
+      )
+    )
+  )
+);
+
+discourse_latest(apiKey:string, apiUsername:string) := {
+  read_json[discoursetopic](  "https://discuss.raw-labs.com/latest",
+                              http_headers:=[
+                                          ("Api-Key", apiKey),
+                                          ("Api-Username", apiUsername),
+                                          ("Accept", "application/json")
+                                      ]
+                          )
+};
