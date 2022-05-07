@@ -1,4 +1,4 @@
-# discourse.com
+# discourse.org
 # Discussion platform
 
 Based on https://discourse.org/  
