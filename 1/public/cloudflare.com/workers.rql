@@ -122,3 +122,21 @@ deletevalue(    x_auth_key: string,
                     )
 };
 
+//
+// https://api.cloudflare.com/#workers-kv-namespace-create-a-namespace
+//
+
+create_a_namespace( x_auth_key: string, 
+                    x_auth_email: string,
+                    account_id: string,
+                    namespace: string ) := {
+    read_json[response]("https://api.cloudflare.com/client/v4/accounts/"+account_id+"/storage/kv/namespaces",
+                        http_method:= "post",
+                        http_headers:=[
+                                    ("X-Auth-Email",x_auth_email),
+                                    ("X-Auth-Key", x_auth_key),
+                                    ("Content-Type", "application/json")
+                                ],
+                        http_body_string := print_json((title:namespace))
+                        )
+};
