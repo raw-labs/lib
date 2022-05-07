@@ -13,7 +13,8 @@ Endpoints:
 Can be used to fetch all categories and subcategories  
 https://docs.discourse.org/#tag/Site/operation/getSite  
 
-`discourse_latest(apiKey:string, apiUsername:string)`
-Get the latest topics
-https://docs.discourse.org/#tag/Topics/operation/listLatestTopics
+`discourse_latest(apiKey:string, apiUsername:string)`  
+Get the latest topics  
+https://docs.discourse.org/#tag/Topics/operation/listLatestTopics  
+
 
