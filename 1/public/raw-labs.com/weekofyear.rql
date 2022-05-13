@@ -13,12 +13,6 @@
 // limitations under the License.
 //
 
-
-//
-// computes the day in the week from the date
-// 0:Sunday, 1:Monday...
-//
-
 weekday(d:date) := {
     dd:=day(d);
     mm:=month(d)
@@ -38,4 +32,22 @@ weekday(d:date) := {
             
    (dd + (yy-1900)+ ((yy-1900)/4)+cfirst(select v from off where m=mm))%7
 
+};
+
+dayofyear(d: date) : int := {
+
+cast( (cast((unix_timestamp(to_timestamp(cast(d as string)+" 0:0", "yyyy-MM-dd H:m" )) -
+unix_timestamp(to_timestamp(cast(year(d) as string)+"-01-01 0:0","yyyy-MM-dd H:m"))) as double)/ 60.0 / 60.0 / 24.0) + 1 as int)
+
+};
+
+//
+// returns the week of the year for date
+// 1-52
+weekofyear(d: date) := {
+    doy:=dayofyear(d);
+    dow:=weekday(d);
+    dow1:=weekday(to_date(cast(year(d) as string)+"-01-01","yyy-MM-dd"));
+    week:=(doy/7)+1;
+    if dow<dow1 then week+1 else week
 };

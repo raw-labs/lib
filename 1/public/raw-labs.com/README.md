@@ -12,8 +12,13 @@ Returns the day of the week from the date.
 
 ## dayofyear
 `dayofyear(d: date)`  
-Returns the day in the year of date.  
+Returns the day in the year for date.  
 1-366  
+
+## weekofyear  
+`weekofyear(d: date)`  
+Returns the week of the year for date  
+1-52  
 
 ## read_rss
 `read_rss("http://rss.cnn.com/rss/edition_world.rss")`<br>
