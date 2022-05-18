@@ -32,18 +32,18 @@ collection(record(
     type: string,
     link: string,
     title: record(rendered: string),
-    content: record(rendered: string, protected: bool),
+    content: record(rendered: string, protected: bool) nullable,
     excerpt: record(rendered: string, protected: bool),
-    author: int,
+    author: int nullable,
     featured_media: int,
-    comment_status: string,
-    ping_status: string,
-    sticky: bool,
+    comment_status: string nullable,
+    ping_status: string nullable,
+    sticky: bool nullable,
     template: string,
-    format: string,
-    meta: collection(nothing),
-    categories: collection(int),
-    tags: collection(nothing),
+    format: string nullable,
+    meta: collection(nothing) nullable,
+    categories: collection(int) nullable,
+    tags: collection(nothing) nullable,
     acf: collection(nothing),
     yoast_head: string,
     yoast_head_json: record(
@@ -134,16 +134,16 @@ collection(record(
       about: collection(record(href: string)),
       author: collection(record(
           embeddable: bool,
-          href: string)),
+          href: string)) nullable,
       replies: collection(record(
           embeddable: bool,
-          href: string)),
+          href: string)) nullable,
       `version-history`: collection(record(
           count: int,
-          href: string)),
+          href: string)) nullable,
       `predecessor-version`: collection(record(
           id: int,
-          href: string)),
+          href: string)) nullable,
       `wp:featuredmedia`: collection(record(
           embeddable: bool,
           href: string)),
@@ -151,7 +151,7 @@ collection(record(
       `wp:term`: collection(record(
           taxonomy: string,
           embeddable: bool,
-          href: string)),
+          href: string)) nullable,
       curies: collection(record(
           name: string,
           href: string,
