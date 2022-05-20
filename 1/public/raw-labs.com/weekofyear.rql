@@ -48,6 +48,6 @@ weekofyear(d: date) := {
     doy:=dayofyear(d);
     dow:=weekday(d);
     dow1:=weekday(to_date(cast(year(d) as string)+"-01-01","yyy-MM-dd"));
-    week:=(doy/7)+1;
+    week:=(doy+6)/7;
     if dow<dow1 then week+1 else week
 };
