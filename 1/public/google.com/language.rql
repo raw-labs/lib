@@ -41,6 +41,39 @@ typealias analyze_entities_response :=
         ),
         language: string
     );
+    
+typealias analyze_entity_sentiment_response := 
+    record(entities: 
+        collection(
+            record(
+                name: string,
+                type: string,
+                metadata: record(
+                    wikipedia_url: string nullable,
+                    mid: string nullable
+                ),
+                salience: double,
+                mentions: collection(
+                    record(
+                        text: record(
+                            content: string,
+                            beginOffset: int
+                        ),
+                        type: string,
+                        sentiment: record(
+                            magnitude: double,
+                            score: double
+                        )
+                    )
+                )
+                sentiment: record(
+                    magnitude: double,
+                    score: double
+                )
+            )
+        ),
+        language: string
+    );
 
 // entity extraction and sentiment
 // example: 
@@ -59,6 +92,28 @@ analyze_entities(
    body_str := concat ( "{\"document\":{\"type\":\"", type, "\",\"content\":\"", content, "\"},\"encodingType\":\"" + encodingType, "\"}");
     
     READ_JSON[analyze_entities_response]("https://language.googleapis.com/v1/documents:analyzeEntities", 
+    http_method := "post", 
+    http_args := [("key",key)],
+    http_headers := 
+    [
+    ("x-raw-output-format", "json"),
+    ("Content-Type", "application/json; charset=utf-8")
+    ], 
+    http_body_string := body_str
+    )
+};
+
+analyze_entity_sentiment( 
+    key: string, 
+    content: string , 
+    type: string nullable := "PLAIN_TEXT" , 
+    encodingType: string nullable := "UTF8"
+    ) := {
+
+   // form the JSON string google needs
+   body_str := concat ( "{\"document\":{\"type\":\"", type, "\",\"content\":\"", content, "\"},\"encodingType\":\"" + encodingType, "\"}");
+    
+    READ_JSON[analyze_entity_sentiment_response]("https://language.googleapis.com/v1/documents:analyzeEntitySentiment", 
     http_method := "post", 
     http_args := [("key",key)],
     http_headers := 
