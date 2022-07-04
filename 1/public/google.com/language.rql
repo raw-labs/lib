@@ -65,7 +65,7 @@ typealias analyze_entity_sentiment_response :=
                             score: double
                         )
                     )
-                )
+                ),
                 sentiment: record(
                     magnitude: double,
                     score: double
