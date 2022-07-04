@@ -56,7 +56,7 @@ typealias rss_type :=
                     link: string,
                     author: string nullable,
                     guid: record(
-                        `@isPermaLink`: bool,
+                        `@isPermaLink`: bool nullable,
                         `#text`: collection(string)
                     ) nullable,
                     comments: string nullable,
