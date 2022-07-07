@@ -1,0 +1,18 @@
+  // basic twitter query string generation:
+  // i.e. (from:twitterName1 OR from:twitterName2) ( keyword1 OR keyword2 )
+  // takes a comma separated list of twitter handles, and a comma separated list of keywords
+  // see: https://developer.twitter.com/en/docs/twitter-api/tweets/search/integrate/build-a-query
+
+query_str(twitterNameList: string nullable := null, keywordList: string nullable := null, keywordLogic: string := "OR") := {
+
+    IF twitterNameList is null THEN "" ELSE "(" + 
+    mkstring( 
+      (select "from:" + *
+      from 
+      split(twitterNameList,","))," OR "
+    )
+    + IF twitterNameList is null THEN "" ELSE ")" 
+    + IF keywordList is null THEN "" ELSE "(" 
+    + mkstring(split(keywordList,",")," " + keywordLogic + " ")
+    + IF keywordList is null THEN "" ELSE ")" 
+}
