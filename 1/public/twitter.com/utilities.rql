@@ -3,16 +3,21 @@
   // takes a comma separated list of twitter handles, and a comma separated list of keywords
   // see: https://developer.twitter.com/en/docs/twitter-api/tweets/search/integrate/build-a-query
 
-query_str(twitterNameList: string nullable := null, keywordList: string nullable := null, keywordLogic: string := "OR") := {
-
-    IF twitterNameList is null THEN "" ELSE "(" + 
-    mkstring( 
-      (select "from:" + *
-      from 
-      split(twitterNameList,","))," OR "
+query_str(twitterNameList: string nullable := "", keywordList: string nullable := "", keywordLogic: string := "OR") := {
+    CONCAT ( 
+      IF len(twitterNameList) > 0 
+      THEN 
+        "(" + mkstring( 
+                ( 
+                  SELECT "from:" + *
+                  FROM 
+                  split(twitterNameList,",")
+                )," OR "
+              ) + ")" 
+      ELSE "",
+      IF len(keywordList) > 0 
+        THEN 
+          "(" + mkstring(split(keywordList,",")," " + keywordLogic + " ") + ")" 
+        ELSE ""
     )
-    + IF twitterNameList is null THEN "" ELSE ")" 
-    + IF keywordList is null THEN "" ELSE "(" 
-    + mkstring(split(keywordList,",")," " + keywordLogic + " ")
-    + IF keywordList is null THEN "" ELSE ")" 
 }
